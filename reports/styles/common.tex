@@ -1,0 +1,29 @@
+% Copied verbatim from the PKMS vault house style (~/Documents/PKMS/reports/styles/common.tex); do not edit here.
+% =====================================================================
+% PKMS shared report foundation (used by BOTH styles)
+% Single source of truth for the house palette + diagram/chart packages.
+% Mirror these hexes in styles/report.mplstyle and styles/pkms_palette.py.
+% =====================================================================
+
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{xcolor}
+
+% ---- House accent palette ----
+\definecolor{pkmsink}{HTML}{1A2A3A}     % structural ink (near-black blue)
+\definecolor{accentblue}{HTML}{1565C0}  % primary
+\definecolor{accentgreen}{HTML}{2E7D32} % positive
+\definecolor{accentred}{HTML}{C62828}   % alert
+\definecolor{accentamber}{HTML}{F9A825} % highlight
+\definecolor{accentgray}{HTML}{616161}  % muted
+\definecolor{surface}{HTML}{F5F5F5}     % light surface / box background
+
+% ---- TikZ + pgfplots: native diagrams and vector charts ----
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric,arrows.meta,positioning,fit,backgrounds,calc,decorations.pathreplacing}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+% ---- Consistent code listings ----
+\lstset{basicstyle=\ttfamily\small, breaklines=true, frame=none, columns=fullflexible}

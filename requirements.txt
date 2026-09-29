@@ -1,0 +1,9 @@
+matplotlib>=3.8,<4
+numpy>=1.26,<3
+pandas>=2.0,<3
+catboost>=1.2,<2
+optuna>=3.6,<5
+pytest>=8,<10
+ipykernel>=6.29,<8
+jupyter>=1.0,<2
+nbconvert>=7,<8

@@ -1,0 +1,63 @@
+% Median bias by test month (median(pred / actual) - 1, clean rows, in %, rounded to one
+% decimal as in the report's table), month 1 vs month 2 of each fold. Left: plain CatBoost without a level (cb_base, 1 seed; backtest/cb_base.json ->
+% folds.*.slices.month). Right: the final model (mean over 3 seeds;
+% tuning/final_comparison.csv -> bias_m1_mean / bias_m2_mean).
+% Set \def\mbShowFinal{0} before \input to draw the left panel only (default: both), and
+% \def\mbHeight{...} to change the panel height (default 4.6cm), \def\mbBarW{...} for the bar
+% width (default 9pt).
+% Width follows \linewidth; colours from styles/common.tex.
+\providecommand{\mbShowFinal}{1}%
+\providecommand{\mbHeight}{4.6cm}%
+\providecommand{\mbBarW}{9pt}%
+\begingroup
+\sffamily
+\ifnum\mbShowFinal=1
+  \pgfmathsetlengthmacro{\mbW}{0.5\linewidth-0.4cm}%
+\else
+  \pgfmathsetlengthmacro{\mbW}{\linewidth}%
+\fi
+\pgfplotsset{
+  mbaxis/.style={
+    width=\mbW, height=\mbHeight, scale only axis=false,
+    ybar, bar width=\mbBarW,
+    symbolic x coords={F1,F2,F3}, xtick=data,
+    xticklabels={{F1\\[-1pt]\scriptsize May / Jun},{F2\\[-1pt]\scriptsize Jul / Aug},{F3\\[-1pt]\scriptsize Sep / Oct}},
+    xticklabel style={align=center, text=pkmsink, font=\footnotesize},
+    enlarge x limits=0.25,
+    ymin=-8, ymax=4, ytick={-8,-6,-4,-2,0,2,4},
+    yticklabel={$\pgfmathprintnumber{\tick}$\%},
+    yticklabel style={text=accentgray, font=\scriptsize},
+    ymajorgrids, grid style={accentgray!20, very thin},
+    axis line style={accentgray}, axis x line*=bottom, axis y line*=left,
+    tick style={draw=none},
+    title style={font=\footnotesize\bfseries, text=pkmsink, yshift=-2pt},
+    point meta=y,
+    nodes near coords={\pgfmathprintnumber[fixed, precision=1, showpos]{\pgfplotspointmeta}},
+    nodes near coords align={vertical},
+    every node near coord/.append style={font=\tiny, text=pkmsink, inner sep=1.5pt},
+    extra y ticks={0}, extra y tick labels={},
+    extra y tick style={grid style={pkmsink, thin}},
+  },
+  mbm1/.style={fill=accentblue!35, draw=none},
+  mbm2/.style={fill=accentred, draw=none},
+}
+\begin{tikzpicture}
+  \begin{axis}[mbaxis, name=plain, title={Plain CatBoost (no level)},
+      ylabel={median bias}, ylabel style={font=\scriptsize, text=accentgray}]
+    \addplot[mbm1] coordinates {(F1,-0.3) (F2,-0.4) (F3,-2.5)};
+    \addplot[mbm2] coordinates {(F1,-6.6) (F2,-2.8) (F3,-6.5)};
+  \end{axis}
+  \ifnum\mbShowFinal=1
+  \begin{axis}[mbaxis, at={(plain.east)}, anchor=west, xshift=0.5cm,
+      title={$L(\text{date})$ + CatBoost (final)}, yticklabels={}]
+    \addplot[mbm1] coordinates {(F1,-1.1) (F2,0.5) (F3,-0.7)};
+    \addplot[mbm2] coordinates {(F1,-2.1) (F2,2.6) (F3,-1.1)};
+  \end{axis}
+  \fi
+  % legend centred under the panels (below the two-line tick labels)
+  \node[anchor=north, font=\scriptsize, text=pkmsink, inner sep=0pt]
+    at ([yshift=-4pt]current bounding box.south) {%
+      \tikz[baseline=-0.6ex]\fill[accentblue!35] (0,0) rectangle (2.4mm,2.4mm);\ first test month\qquad
+      \tikz[baseline=-0.6ex]\fill[accentred] (0,0) rectangle (2.4mm,2.4mm);\ second test month};
+\end{tikzpicture}%
+\endgroup

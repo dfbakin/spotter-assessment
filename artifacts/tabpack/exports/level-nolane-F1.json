@@ -1,0 +1,83 @@
+{
+  "fold": "F1",
+  "mode": "level",
+  "base_feature_config": "cb_level_tuned",
+  "train_window": [
+    "2025-01-01",
+    "2025-04-30"
+  ],
+  "val_window": [
+    "2025-04-03",
+    "2025-04-30"
+  ],
+  "test_window": [
+    "2025-05-01",
+    "2025-06-30"
+  ],
+  "n": {
+    "train": 14438,
+    "val": 4397,
+    "test": 9696
+  },
+  "n_train_window": 19110,
+  "n_train_flagged_dropped": 275,
+  "n_test_flagged": 125,
+  "n_test_cold": 0,
+  "lane_mode": "drop",
+  "lane_topk": null,
+  "lane_topk_min_count": null,
+  "num_cols": [
+    "pickup_lat",
+    "pickup_lon",
+    "delivery_lat",
+    "delivery_lon",
+    "haversine_mi",
+    "bearing_deg",
+    "delta_lat",
+    "delta_lon",
+    "distance",
+    "log_distance",
+    "circuity",
+    "weight",
+    "weight_missing",
+    "weight_was_negative",
+    "weight_at_cap",
+    "weight_at_floor",
+    "mi_dev",
+    "mi_missing",
+    "dow",
+    "dom"
+  ],
+  "cat_cols": [
+    "pickup",
+    "delivery",
+    "equipment"
+  ],
+  "cat_cardinality_train": {
+    "pickup": 64,
+    "delivery": 64,
+    "equipment": 3
+  },
+  "level_terms": [
+    "mi_day_mean",
+    "t",
+    "qe_ramp"
+  ],
+  "level_coef": {
+    "const": -0.11740246047159604,
+    "mi_day_mean": 0.09939231791126805,
+    "t": 0.00018369545022359213,
+    "qe_ramp": 0.032494741876914666,
+    "r2_daily_weighted": 0.9655864229366021,
+    "n_days": 120,
+    "n_rows": 18835
+  },
+  "target_std": {
+    "train": 0.11655730993445372,
+    "val": 0.11361880056721783,
+    "test": 0.1912337573540021
+  },
+  "nan_counts": {
+    "weight": 176
+  }
+}

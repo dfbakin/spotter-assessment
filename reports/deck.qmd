@@ -1,0 +1,152 @@
+---
+title: "Freight rate prediction"
+subtitle: "Spotter · Machine Learning Engineer assessment"
+author: "Denis Bakin"
+date: today
+date-format: "D MMMM YYYY"
+engine: markdown
+format:
+  beamer:
+    theme: default
+    colortheme: default
+    fonttheme: default
+    pdf-engine: xelatex
+    aspectratio: 169
+    slide-level: 2
+    include-in-header:
+      - styles/common.tex
+      - styles/header-pkms.tex
+---
+
+## The price level is market index + trend + quarter-end ramp
+
+```{=latex}
+\begin{center}
+\includegraphics[width=\linewidth,height=0.62\textheight,keepaspectratio]{../artifacts/backtest/level_index.png}
+\end{center}
+\vspace{-0.5em}
+{\small \textbf{Task:} price 12{,}000 Nov--Dec loads from 48{,}000 labelled Jan--Oct loads. The metric is undisclosed;
+8 validation cities never appear in training.}
+```
+
+## 1.4% of labels are corrupted, and cleanly separable
+
+```{=latex}
+\begin{center}
+\includegraphics[width=\linewidth,height=0.56\textheight,keepaspectratio]{../artifacts/backtest/outlier_log_ratio_hist.png}
+\end{center}
+\vspace{-0.5em}
+\footnotesize\renewcommand{\arraystretch}{1.1}
+\begin{tabular}{@{}l r l@{}}
+\toprule
+Corrupted rate ($\times$2.5--5.5 or $\times$0.2--0.45) & 677 (1.4\%) & dropped from training \\
+Weight: sign flip / cap, floor / missing & 292 / 1{,}204, 32 / 300 & abs.\ value / keep / NaN + flag \\
+Missing \texttt{market\_index} & 374 (0.8\%) & that day's mean + flag \\
+\bottomrule
+\end{tabular}
+```
+
+## Plain trees nail month 1 and miss month 2 by up to 6.6%
+
+```{=latex}
+\begin{center}
+\def\mbShowFinal{0}
+\def\mbHeight{4.8cm}
+\def\mbBarW{16pt}
+\begin{minipage}{0.80\linewidth}
+\input{figures/month-bias.tex}
+\end{minipage}
+\end{center}
+\vspace{0.2em}
+{\small Trees cannot extrapolate a rising price level; adding time $t$ still leaves June at $-7.2\%$.}
+```
+
+## The fix: log(rate / distance) = L(date) + CatBoost(x)
+
+```{=latex}
+\vspace{-1.0em}
+\[
+\log\frac{\text{rate}}{\text{distance}} \;=\;
+\underbrace{\beta_0 + \beta_{\text{mi}}\,\bar m(d) + \beta_t\, t + \beta_{\text{qe}}\, q(d)}_{L(\text{date}):\ \text{market level, OLS}}
+\;+\; \underbrace{f(\mathbf{x})}_{\text{CatBoost}}
+\]
+\vspace{-0.9em}
+\begin{center}
+\input{figures/decomposition.tex}
+\end{center}
+\vspace{-0.4em}
+{\footnotesize $L$ = intercept + day's mean market index + linear trend + quarter-end ramp: all known in advance.\\
+CatBoost takes $L$ as its baseline and learns only the lane, equipment, distance and weight structure.}
+```
+
+## Validate forward in time: select on F1 + F2, report F3 once
+
+```{=latex}
+\begin{center}
+\def\tlKeyGap{4mm}
+\input{figures/validation-timeline.tex}
+\end{center}
+\vspace{0.1em}
+{\small Final refit: all 47{,}323 clean Jan--Oct loads, 5 seeds.\\
+Cold-start check on F3: held-out cities \$40.3 MAE vs \$34.4 for the rest.}
+```
+
+## F3 holdout: \$37.5 MAE (1.6%), from \$76 for the yardstick
+
+```{=latex}
+\begin{center}
+\def\fmaeShowTabPack{1}
+\def\fmaeHeight{4.3cm}
+\def\fmaeAxisW{0.55\linewidth}
+\input{figures/f3-mae.tex}
+\end{center}
+\vspace{-0.4em}
+{\footnotesize Quote-signal variant: better on F3, lost on F1 + F2 $\Rightarrow$ dropped. Optuna: defaults kept (gain $<$ \$0.5).\\
+TabPack: better cross-section, worse level $\Rightarrow$ blend weight 1.0 on CatBoost.}
+```
+
+## December: weekly wave + trend + ramp, \$832--884
+
+```{=latex}
+\begin{center}
+\IfFileExists{../scorer_results/candidate_december.png}{%
+  \includegraphics[width=\linewidth,height=0.66\textheight,keepaspectratio]{../scorer_results/candidate_december.png}%
+}{%
+  \begin{tikzpicture}
+    \node[draw=accentgray, densely dashed, fill=surface, rounded corners=2pt,
+          minimum width=0.92\linewidth, minimum height=0.56\textheight,
+          align=center, text=accentgray, font=\small]
+      {\texttt{scorer\_results/candidate\_december.png} does not exist yet.\\[3pt]
+       Run \texttt{make all} (or \texttt{make score}) to create it.};
+  \end{tikzpicture}%
+}
+\end{center}
+\vspace{-0.2em}
+{\small Option A inputs: each day's mean \texttt{market\_index} from \texttt{validation.csv}, not labels.\\
+Weights frozen at 31 Oct. \$831.84 on Mon 1 Dec to \$883.92 on Wed 31 Dec.}
+```
+
+## Takeaways, and where they live in the code
+
+```{=latex}
+\small
+\begin{itemize}
+\item \textbf{Validate the way the model is used:} forward in time, F3 scored once.
+\item \textbf{Structure beat tuning:} the level decomposition took F3 MAPE from 2.35\% to 1.61\%.
+\item \textbf{The learner is not the bottleneck:} TabPack was worth $\approx$ \$1, the decomposition $\approx$ \$20.
+\end{itemize}
+\vspace{0.4em}
+\footnotesize\renewcommand{\arraystretch}{1.15}\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.28\linewidth} >{\raggedright\arraybackslash}p{0.34\linewidth} >{\raggedright\arraybackslash}p{0.34\linewidth}@{}}
+\toprule
+File & Key names & Role \\
+\midrule
+\texttt{src/freight/outliers.py} & \texttt{RpmReference}, \texttt{flag\_corrupted} & corrupted labels \\
+\texttt{src/freight/split.py} & \texttt{Fold}, \texttt{cold\_start\_holdout} & forward-time folds, cold start \\
+\texttt{src/freight/level.py} & \texttt{MarketLevel}, \texttt{qe\_ramp} & the market level $L(\text{date})$ \\
+\texttt{src/freight/models.py} & \texttt{LevelCatBoostRate} & CatBoost with $L$ as baseline \\
+\texttt{src/freight/final.py} & \texttt{fit\_final}, \texttt{predict\_december} & final fit, deliverables \\
+\texttt{Makefile} & \texttt{make all} & tests, train, predict, score \\
+\bottomrule
+\end{tabular}
+```

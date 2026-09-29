@@ -1,0 +1,54 @@
+% Project-specific article header (NOT part of the PKMS vault copy).
+% Load after styles/common.tex. Tints the KOMA-Script (scrartcl) title and
+% headings with the house palette so the PDF report visibly matches the Beamer
+% deck (styles/header-pkms.tex): ink headings, accent-blue numbers, a thin
+% accent rule under each section, and a left-aligned title block.
+\makeatletter
+
+% ---- Headings -------------------------------------------------------------
+\addtokomafont{disposition}{\color{pkmsink}}
+\setkomafont{section}{\Large\sffamily\bfseries}
+\setkomafont{subsection}{\large\sffamily\bfseries}
+\renewcommand*{\sectionformat}{\textcolor{accentblue}{\thesection}\autodot\enskip}
+\renewcommand*{\subsectionformat}{\textcolor{accentblue}{\thesubsection}\autodot\enskip}
+\def\pkms@sectionname{section}
+\renewcommand*{\sectionlinesformat}[4]{%
+  \def\pkms@level{#1}%
+  \ifx\pkms@level\pkms@sectionname
+    \parbox[t]{\linewidth}{%
+      \setlength{\parskip}{0pt}%
+      \raggedsection\@hangfrom{\hskip #2#3}{#4}\par
+      \nointerlineskip\vspace{3pt}%
+      \noindent{\color{accentblue}\rule{\linewidth}{1.2pt}}}%
+  \else
+    \@hangfrom{\hskip #2#3}{#4}%
+  \fi
+}
+
+% ---- Title block (mirrors the deck title page) ------------------------------
+\renewcommand*{\maketitle}{%
+  \begingroup
+    \raggedright
+    {\color{accentblue}\rule{0.18\textwidth}{3pt}\par}
+    \vspace{0.8em}
+    {\usekomafont{title}\color{pkmsink}\huge\@title\par}
+    \ifx\@subtitle\@empty\else
+      \vspace{0.45em}
+      {\usekomafont{subtitle}\color{accentgray}\large\mdseries\@subtitle\par}
+    \fi
+    \vspace{1.1em}
+    {\normalsize\@author\par}
+    \vspace{0.2em}
+    {\small\color{accentgray}\@date\par}
+  \endgroup
+  \vspace{1.8em}%
+}
+
+% ---- Small helpers ---------------------------------------------------------
+% Visible placeholder for content that is filled in once results exist.
+\newcommand*{\tbd}[1]{\textcolor{accentred}{\textbf{TBD:}~#1}}
+\newcommand*{\tbdmark}{\textcolor{accentred}{\textbf{TBD}}}
+% Figure/table captions: label in accent blue, as in the deck chrome.
+\addtokomafont{captionlabel}{\color{accentblue}\bfseries}
+
+\makeatother

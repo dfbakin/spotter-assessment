@@ -1,0 +1,35 @@
+# Environment
+.venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.pytest_cache/
+
+# Spotter-provided raw data and brief (not redistributed; see README)
+data/
+*.pdf
+!reports/_output/*.pdf
+
+# Heavy / regenerable artifacts
+artifacts/models/
+catboost_info/
+optuna*.db
+
+# Quarto
+reports/.quarto/
+reports/**/*.quarto_ipynb
+reports/**/*_files/
+
+# Per-fold backtest predictions (~45 MB, regenerate with `make backtest`)
+artifacts/backtest/preds/
+*.egg-info/
+
+# Personal talking points for the video (kept local)
+reports/loom_script.md
+
+# external clone / paper (not redistributed)
+/tabpack/
+tabpack.pdf
+# TabPack per-row backtest predictions (regenerable, ~30 MB); tables, JSONs and final CSVs are kept
+artifacts/tabpack/preds/
+artifacts/tabpack/final/preds/

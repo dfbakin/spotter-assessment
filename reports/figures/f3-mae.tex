@@ -1,0 +1,74 @@
+% F3 holdout (Sep-Oct) MAE on clean rows, $, by model.
+% Sources: backtest/summary.csv (yardstick, cb_base: 1 run each), backtest/level_summary.csv
+% (cb_time: 3 seeds), tuning/final_comparison.csv (yardstick_level, cb_level, final config:
+% 3 seeds), final/ensemble_f3.json (5-seed ensemble).
+% Set \def\fmaeHeight{...} / \def\fmaeAxisW{...} before \input to change the plot-area
+% height (default 4.2cm) and width (default 0.55\linewidth; the tick labels sit to its left),
+% \def\fmaeBar{...} for the bar width (default 7.5pt).
+% \def\fmaeShowTabPack{1} adds the two TabPack rows (short deck; default 0 = report and long
+% deck): F3 clean MAE, mean +- sd over seeds 0-2 from artifacts/tabpack/table_a.csv
+% (tp_standalone 60.36 +- 3.66, phase-1 cb_time features incl. t_days; tp_level 39.89 +- 0.21).
+\providecommand{\fmaeHeight}{4.2cm}%
+\providecommand{\fmaeAxisW}{0.55\linewidth}%
+\providecommand{\fmaeBar}{7.5pt}%
+\providecommand{\fmaeShowTabPack}{0}%
+\begingroup
+\sffamily
+\ifnum\fmaeShowTabPack=1
+  \pgfplotsset{fmaerows/.style={
+    symbolic y coords={ys,yl,cbb,cbt,tpt,cbl,fin,ens,tpl},
+    ytick={ys,yl,cbb,cbt,tpt,cbl,fin,ens,tpl},
+    yticklabels={
+      {Lane median $\times$ distance},
+      {Lane median $\times\, e^{L}$},
+      {CatBoost, no time},
+      {CatBoost + time $t$},
+      {TabPack + time $t$},
+      {$L$ + CatBoost + quote signal},
+      {\textbf{$\boldsymbol{L}$ + CatBoost (chosen)}},
+      {5-seed ensemble},
+      {$L$ + TabPack}}}}%
+\else
+  \pgfplotsset{fmaerows/.style={
+    symbolic y coords={ys,yl,cbb,cbt,cbl,fin,ens}, ytick={ys,yl,cbb,cbt,cbl,fin,ens},
+    yticklabels={
+      {Lane median $\times$ distance},
+      {Lane median $\times\, e^{L}$},
+      {CatBoost, no time},
+      {CatBoost + time $t$},
+      {$L$ + CatBoost + quote signal},
+      {\textbf{$\boldsymbol{L}$ + CatBoost (chosen)}},
+      {5-seed ensemble}}}}%
+\fi
+\begin{tikzpicture}
+  \begin{axis}[
+      scale only axis, width=\fmaeAxisW, height=\fmaeHeight,
+      xbar, bar width=\fmaeBar, bar shift=0pt,
+      y dir=reverse,
+      fmaerows,
+      yticklabel style={font=\scriptsize, text=pkmsink},
+      enlarge y limits=0.09,
+      xmin=0, xmax=118, xtick={0,25,50,75,100},
+      xticklabel={\$\pgfmathprintnumber{\tick}},
+      xticklabel style={font=\scriptsize, text=accentgray},
+      xmajorgrids, grid style={accentgray!20, very thin},
+      axis line style={accentgray}, axis x line*=bottom, axis y line*=left,
+      tick style={draw=none},
+      nodes near coords, point meta=explicit symbolic,
+      every node near coord/.append style={font=\scriptsize, text=pkmsink, anchor=west},
+      xlabel={F3 holdout MAE, clean rows},
+      xlabel style={font=\scriptsize, text=accentgray},
+    ]
+    \addplot[fill=accentgray!45, draw=none] coordinates
+      {(76.15,ys) [76.2] (74.07,yl) [74.1] (88.47,cbb) [88.5]};
+    \addplot[fill=accentamber, draw=none] coordinates {(57.49,cbt) [57.5 $\pm$ 1.9]};
+    \addplot[fill=accentblue!35, draw=none] coordinates {(34.82,cbl) [34.8 $\pm$ 0.1]};
+    \addplot[fill=accentblue, draw=none] coordinates {(37.45,fin) [\textbf{37.5 $\pm$ 0.1}]};
+    \addplot[fill=accentblue!70, draw=none] coordinates {(37.19,ens) [37.2]};
+    \ifnum\fmaeShowTabPack=1
+      \addplot[fill=accentgreen!45, draw=none] coordinates {(60.36,tpt) [60.4 $\pm$ 3.7]};
+      \addplot[fill=accentgreen, draw=none] coordinates {(39.89,tpl) [39.9 $\pm$ 0.2]};
+    \fi
+  \end{axis}
+\end{tikzpicture}%
+\endgroup

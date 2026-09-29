@@ -1,0 +1,45 @@
+{
+  "threshold": 0.47000362924573563,
+  "F1_train": {
+    "n": 19110,
+    "flagged": 275,
+    "genuine_max": 0.18406269876187606,
+    "corrupted_min": 0.781744154039253
+  },
+  "F1_test": {
+    "n": 9696,
+    "flagged": 125,
+    "genuine_max": 0.2294083012857426,
+    "corrupted_min": 0.7302262705699293
+  },
+  "F2_train": {
+    "n": 28806,
+    "flagged": 400,
+    "genuine_max": 0.21414412152304726,
+    "corrupted_min": 0.743501847701562
+  },
+  "F2_test": {
+    "n": 9671,
+    "flagged": 133,
+    "genuine_max": 0.16401945936540652,
+    "corrupted_min": 0.8297089907780638
+  },
+  "F3_train": {
+    "n": 38477,
+    "flagged": 533,
+    "genuine_max": 0.21414412152304726,
+    "corrupted_min": 0.7638405314755411
+  },
+  "F3_test": {
+    "n": 9523,
+    "flagged": 144,
+    "genuine_max": 0.16679326098884653,
+    "corrupted_min": 0.7934138031090833
+  },
+  "all_train": {
+    "n": 48000,
+    "flagged": 677,
+    "genuine_max": 0.21414412152304726,
+    "corrupted_min": 0.7638405314755411
+  }
+}

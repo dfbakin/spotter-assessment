@@ -1,0 +1,45 @@
+% F3 holdout (Sep-Oct): the chosen L + CatBoost vs TabPack, MAE in $ on clean rows (top) and
+% day-debiased MAE (bottom: each test day's median log error removed, i.e. the cross-section only).
+% Mean over seeds 0-2 from artifacts/tabpack/table_a.csv (mae_clean, mae_debiased):
+% cb_level_noqs 37.45 / 32.56, tp_level 39.89 / 31.86, tp_standalone 60.36 (clean only).
+% Set \def\tpfAxisW{...} before \input to change the plot-area width (default 0.46\linewidth;
+% the tick labels sit to its left), \def\tpfBar{...} for the bar width (default 7.5pt).
+\providecommand{\tpfAxisW}{0.46\linewidth}%
+\providecommand{\tpfBar}{7.5pt}%
+\begingroup
+\sffamily
+\pgfplotsset{
+  tpfaxis/.style={
+    scale only axis, width=\tpfAxisW,
+    xbar, bar width=\tpfBar, bar shift=0pt,
+    y dir=reverse,
+    yticklabel style={font=\scriptsize, text=pkmsink},
+    xmin=0, xmax=72, xtick={0,20,40,60},
+    xticklabel={\$\pgfmathprintnumber{\tick}},
+    xticklabel style={font=\scriptsize, text=accentgray},
+    xmajorgrids, grid style={accentgray!20, very thin},
+    axis line style={accentgray}, axis x line*=bottom, axis y line*=left,
+    tick style={draw=none},
+    title style={font=\scriptsize\bfseries, text=pkmsink, anchor=south west, at={(0,1)}, xshift=-2pt},
+    nodes near coords, point meta=explicit symbolic,
+    every node near coord/.append style={font=\scriptsize, text=pkmsink, anchor=west},
+  },
+}
+\begin{tikzpicture}
+  \begin{axis}[tpfaxis, name=clean, height=1.75cm,
+      symbolic y coords={cb,tl,ts}, ytick={cb,tl,ts}, enlarge y limits=0.28,
+      yticklabels={{\textbf{$L$ + CatBoost (chosen)}}, {$L$ + TabPack}, {TabPack, no $L$}},
+      title={F3 MAE, clean rows}]
+    \addplot[fill=accentblue, draw=none] coordinates {(37.45,cb) [\textbf{37.45}]};
+    \addplot[fill=accentgreen, draw=none] coordinates {(39.89,tl) [39.89]};
+    \addplot[fill=accentamber, draw=none] coordinates {(60.36,ts) [60.36]};
+  \end{axis}
+  \begin{axis}[tpfaxis, at={(clean.south west)}, anchor=north west, yshift=-1.4cm, height=1.05cm,
+      symbolic y coords={cb,tl}, ytick={cb,tl}, enlarge y limits=0.42,
+      yticklabels={{$L$ + CatBoost}, {$L$ + TabPack}},
+      title={F3 MAE, day-debiased}]
+    \addplot[fill=accentblue, draw=none] coordinates {(32.56,cb) [32.56]};
+    \addplot[fill=accentgreen, draw=none] coordinates {(31.86,tl) [\textbf{31.86}]};
+  \end{axis}
+\end{tikzpicture}%
+\endgroup

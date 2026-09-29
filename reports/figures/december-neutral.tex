@@ -1,0 +1,41 @@
+% December chart lane: Option A (daily market index, the deliverable) vs a neutral market
+% (every December mi_day_mean set to the December average). Read directly from
+% artifacts/final/december_components.csv (written by `make predict`), so the figure always
+% matches the delivered numbers. Path is relative to reports/, where LaTeX runs.
+% Set \def\dnHeight{...} before \input to change the height (default 5.2cm).
+\providecommand{\dnHeight}{5.2cm}%
+\begingroup
+\sffamily
+\begin{tikzpicture}
+  \begin{axis}[
+      width=\linewidth, height=\dnHeight,
+      xmin=0.5, xmax=31.5, ymin=825, ymax=890,
+      xtick={1,8,15,22,29},
+      xticklabels={{Mon 1},{Mon 8},{Mon 15},{Mon 22},{Mon 29}},
+      minor xtick={1,...,31},
+      xticklabel style={font=\scriptsize, text=accentgray},
+      ytick={830,840,...,890},
+      yticklabel={\$\pgfmathprintnumber{\tick}},
+      yticklabel style={font=\scriptsize, text=accentgray},
+      ymajorgrids, grid style={accentgray!20, very thin},
+      axis line style={accentgray}, axis x line*=bottom, axis y line*=left,
+      tick style={draw=none},
+      xlabel={December 2025}, xlabel style={font=\scriptsize, text=accentgray},
+      legend style={draw=none, fill=white, fill opacity=0.85, text opacity=1,
+                    font=\scriptsize, text=pkmsink, at={(0.02,0.98)}, anchor=north west},
+      legend cell align=left,
+    ]
+    % quarter-end ramp: qe_ramp > 0 from Dec 16
+    \fill[surface] (axis cs:15.5,825) rectangle (axis cs:31.5,890);
+    \node[font=\scriptsize\itshape, text=accentgray, anchor=south] at (axis cs:23.5,826) {quarter-end ramp};
+    \addplot[accentgray, densely dashed, thick]
+      table[x expr=\coordindex+1, y=pred_neutral, col sep=comma]
+      {../artifacts/final/december_components.csv};
+    \addlegendentry{neutral market (December-mean index)}
+    \addplot[accentblue, very thick, mark=*, mark size=1.3pt]
+      table[x expr=\coordindex+1, y=pred_optionA, col sep=comma]
+      {../artifacts/final/december_components.csv};
+    \addlegendentry{Option A: daily market index (deliverable)}
+  \end{axis}
+\end{tikzpicture}%
+\endgroup

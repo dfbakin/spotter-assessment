@@ -1,0 +1,176 @@
+=== resume 2026-09-30T00:47:53+05:00 after power loss: study (remaining budget 12 min)
+[I 2026-09-30 00:47:55,257] Using an existing study with name 'cb_level_noqs_f12_day_debiased' instead of creating a new one.
+[tune] # 41 COMPLETE F1  34.18 F1+F2 32.59    | best 32.55 (#36) | d8 lr0.021 it3100 Symme Berno | 3.0 min
+[tune] # 42 COMPLETE F1  34.18 F1+F2 32.63    | best 32.55 (#36) | d8 lr0.020 it3100 Symme Berno | 4.9 min
+[tune] # 43 COMPLETE F1  34.30 F1+F2 32.68    | best 32.55 (#36) | d8 lr0.020 it3100 Symme Berno | 6.4 min
+[tune] # 44 PRUNED   F1  35.82                | best 32.55 (#36) | d8 lr0.024 it600 Symme Berno | 6.6 min
+[tune] # 45 PRUNED   F1  34.76                | best 32.55 (#36) | d9 lr0.022 it2700 Symme Berno | 7.5 min
+[tune] # 46 COMPLETE F1  34.12 F1+F2 32.62    | best 32.55 (#36) | d8 lr0.026 it2400 Symme Berno | 8.9 min
+[tune] # 47 COMPLETE F1  34.24 F1+F2 32.86    | best 32.55 (#36) | d8 lr0.026 it1600 Symme Berno | 9.8 min
+[tune] # 48 PRUNED   F1  36.84                | best 32.55 (#36) | d9 lr0.033 it2400 Depth Berno | 10.8 min
+[tune] # 49 PRUNED   F1  34.49                | best 32.55 (#36) | d9 lr0.025 it2600 Symme Berno | 11.9 min
+[tune] # 50 PRUNED   F1  34.50                | best 32.55 (#36) | d8 lr0.022 it2000 Symme Berno | 12.4 min
+
+study: {'n_trials': 51, 'states': {'COMPLETE': 32, 'PRUNED': 18, 'FAIL': 1}, 'wall_clock_minutes': 909.7, 'trial_minutes': 909.4}  (this call 12.4 min)
+best trial #36: F1+F2 day-debiased 32.55  params {'depth': 8, 'learning_rate': 0.020531180351655874, 'iterations': 3500, 'l2_leaf_reg': 2.4229404295446013, 'random_strength': 0.12894179062139197, 'border_count': 128, 'one_hot_max_size': 4, 'bootstrap_type': 'Bernoulli', 'grow_policy': 'SymmetricTree', 'subsample': 0.9392026637194821}
+=== reeval 2026-09-30T01:00:22+05:00
+[I 2026-09-30 01:00:23,661] Using an existing study with name 'cb_level_noqs_f12_day_debiased' instead of creating a new one.
+[reeval] default    seed 0 F1: day-debiased 34.42  MAE clean 50.74  (from study)
+[reeval] default    seed 0 F2: day-debiased 31.43  MAE clean 50.17  (from study)
+[reeval] default    seed 1 F1: day-debiased 34.55  MAE clean 50.52  (19s)
+[reeval] default    seed 1 F2: day-debiased 31.34  MAE clean 50.92  (24s)
+[reeval] default    seed 2 F1: day-debiased 34.33  MAE clean 50.98  (19s)
+[reeval] default    seed 2 F2: day-debiased 31.39  MAE clean 50.46  (25s)
+[reeval] trial_36   seed 0 F1: day-debiased 34.17  MAE clean 50.55  (from study)
+[reeval] trial_36   seed 0 F2: day-debiased 30.94  MAE clean 50.00  (from study)
+[reeval] trial_36   seed 1 F1: day-debiased 34.31  MAE clean 50.87  (50s)
+[reeval] trial_36   seed 1 F2: day-debiased 30.95  MAE clean 50.34  (64s)
+[reeval] trial_36   seed 2 F1: day-debiased 34.04  MAE clean 50.99  (52s)
+[reeval] trial_36   seed 2 F2: day-debiased 30.99  MAE clean 50.42  (64s)
+[reeval] trial_35   seed 0 F1: day-debiased 34.20  MAE clean 50.44  (from study)
+[reeval] trial_35   seed 0 F2: day-debiased 30.95  MAE clean 50.16  (from study)
+[reeval] trial_35   seed 1 F1: day-debiased 34.25  MAE clean 50.82  (60s)
+[reeval] trial_35   seed 1 F2: day-debiased 31.13  MAE clean 50.53  (79s)
+[reeval] trial_35   seed 2 F1: day-debiased 34.23  MAE clean 51.21  (62s)
+[reeval] trial_35   seed 2 F2: day-debiased 31.11  MAE clean 50.29  (79s)
+[reeval] trial_27   seed 0 F1: day-debiased 34.31  MAE clean 50.34  (from study)
+[reeval] trial_27   seed 0 F2: day-debiased 30.86  MAE clean 50.10  (from study)
+[reeval] trial_27   seed 1 F1: day-debiased 34.62  MAE clean 51.05  (36s)
+[reeval] trial_27   seed 1 F2: day-debiased 30.85  MAE clean 50.64  (48s)
+[reeval] trial_27   seed 2 F1: day-debiased 34.24  MAE clean 50.86  (36s)
+[reeval] trial_27   seed 2 F2: day-debiased 30.98  MAE clean 50.66  (49s)
+[reeval] trial_41   seed 0 F1: day-debiased 34.18  MAE clean 50.70  (from study)
+[reeval] trial_41   seed 0 F2: day-debiased 30.99  MAE clean 50.00  (from study)
+[reeval] trial_41   seed 1 F1: day-debiased 34.26  MAE clean 50.94  (46s)
+[reeval] trial_41   seed 1 F2: day-debiased 30.97  MAE clean 50.51  (59s)
+[reeval] trial_41   seed 2 F1: day-debiased 34.00  MAE clean 51.00  (47s)
+[reeval] trial_41   seed 2 F2: day-debiased 31.02  MAE clean 50.34  (59s)
+[reeval] trial_46   seed 0 F1: day-debiased 34.12  MAE clean 50.58  (from study)
+[reeval] trial_46   seed 0 F2: day-debiased 31.12  MAE clean 50.11  (from study)
+[reeval] trial_46   seed 1 F1: day-debiased 34.36  MAE clean 50.95  (41s)
+[reeval] trial_46   seed 1 F2: day-debiased 31.06  MAE clean 50.55  (50s)
+[reeval] trial_46   seed 2 F1: day-debiased 34.11  MAE clean 51.12  (41s)
+[reeval] trial_46   seed 2 F2: day-debiased 31.01  MAE clean 50.37  (50s)
+
+Re-evaluation, F1+F2 mean over seeds 0-2 (sd across seeds)
+candidate  mae_debiased_f12_mean  mae_debiased_f12_sd  mae_clean_f12_mean  mae_clean_f12_sd  mae_all_f12_mean  fit_seconds_f12
+ trial_36                  32.57                 0.06               50.53              0.23            103.34            65.47
+ trial_41                  32.57                 0.05               50.58              0.20            103.39            64.72
+ trial_46                  32.63                 0.07               50.61              0.23            103.42            44.35
+ trial_27                  32.64                 0.08               50.61              0.34            103.42            50.27
+ trial_35                  32.65                 0.06               50.58              0.24            103.38            81.65
+  default                  32.91                 0.05               50.63              0.15            103.45            23.70
+
+chosen: default  params {'depth': 6, 'learning_rate': 0.05, 'iterations': 2000, 'l2_leaf_reg': 3.0, 'random_strength': 1.0, 'border_count': 254, 'one_hot_max_size': 2, 'bootstrap_type': 'MVS', 'grow_policy': 'SymmetricTree', 'subsample': 0.8}
+wrote /home/dfbakin/Documents/spotter_assessment/artifacts/tuning/best_params.json
+=== backtest tuned 2026-09-30T01:19:49+05:00
+[cb_level_noqs] F1_r0 ...
+[cb_level_noqs] F1_r0: MAE clean 50.74  all 104.41  MAPE clean 1.98%  day-debiased 34.42  bias/month 05:-0.011 06:-0.021  (19.6s)
+[cb_level_noqs] F1_r1 ...
+[cb_level_noqs] F1_r1: MAE clean 50.52  all 104.20  MAPE clean 1.98%  day-debiased 34.55  bias/month 05:-0.010 06:-0.021  (19.7s)
+[cb_level_noqs] F1_r2 ...
+[cb_level_noqs] F1_r2: MAE clean 50.98  all 104.66  MAPE clean 2.00%  day-debiased 34.33  bias/month 05:-0.011 06:-0.022  (19.8s)
+[cb_level_noqs] F2_r0 ...
+[cb_level_noqs] F2_r0: MAE clean 50.17  all 102.14  MAPE clean 2.12%  day-debiased 31.43  bias/month 07:+0.005 08:+0.025  (25.7s)
+[cb_level_noqs] F2_r1 ...
+[cb_level_noqs] F2_r1: MAE clean 50.92  all 102.87  MAPE clean 2.16%  day-debiased 31.34  bias/month 07:+0.005 08:+0.026  (25.4s)
+[cb_level_noqs] F2_r2 ...
+[cb_level_noqs] F2_r2: MAE clean 50.46  all 102.43  MAPE clean 2.14%  day-debiased 31.39  bias/month 07:+0.005 08:+0.025  (25.5s)
+[cb_level_noqs] F3_r0 ...
+[cb_level_noqs] F3_r0: MAE clean 37.39  all 93.43  MAPE clean 1.61%  day-debiased 32.50  bias/month 09:-0.007 10:-0.011  (31.5s)
+[cb_level_noqs] F3_r1 ...
+[cb_level_noqs] F3_r1: MAE clean 37.57  all 93.62  MAPE clean 1.61%  day-debiased 32.56  bias/month 09:-0.007 10:-0.011  (32.2s)
+[cb_level_noqs] F3_r2 ...
+[cb_level_noqs] F3_r2: MAE clean 37.39  all 93.45  MAPE clean 1.61%  day-debiased 32.61  bias/month 09:-0.007 10:-0.011  (31.4s)
+/home/dfbakin/Documents/spotter_assessment/src/freight/backtest.py:591: FutureWarning: The behavior of DataFrame concatenation with empty or all-NA entries is deprecated. In a future version, this will no longer exclude empty or all-NA columns when determining the result dtypes. To retain the old behavior, exclude the relevant entries before the concat operation.
+  rows = pd.concat([pd.read_csv(path), rows], ignore_index=True)
+[cb_level_tuned] F1_r0 ...
+[cb_level_tuned] F1_r0: MAE clean 50.74  all 104.41  MAPE clean 1.98%  day-debiased 34.42  bias/month 05:-0.011 06:-0.021  (19.6s)
+[cb_level_tuned] F1_r1 ...
+[cb_level_tuned] F1_r1: MAE clean 50.52  all 104.20  MAPE clean 1.98%  day-debiased 34.55  bias/month 05:-0.010 06:-0.021  (20.0s)
+[cb_level_tuned] F1_r2 ...
+[cb_level_tuned] F1_r2: MAE clean 50.98  all 104.66  MAPE clean 2.00%  day-debiased 34.33  bias/month 05:-0.011 06:-0.022  (19.9s)
+[cb_level_tuned] F2_r0 ...
+[cb_level_tuned] F2_r0: MAE clean 50.17  all 102.14  MAPE clean 2.12%  day-debiased 31.43  bias/month 07:+0.005 08:+0.025  (25.9s)
+[cb_level_tuned] F2_r1 ...
+[cb_level_tuned] F2_r1: MAE clean 50.92  all 102.87  MAPE clean 2.16%  day-debiased 31.34  bias/month 07:+0.005 08:+0.026  (26.0s)
+[cb_level_tuned] F2_r2 ...
+[cb_level_tuned] F2_r2: MAE clean 50.46  all 102.43  MAPE clean 2.14%  day-debiased 31.39  bias/month 07:+0.005 08:+0.025  (25.9s)
+[cb_level_tuned] F3_r0 ...
+[cb_level_tuned] F3_r0: MAE clean 37.39  all 93.43  MAPE clean 1.61%  day-debiased 32.50  bias/month 09:-0.007 10:-0.011  (31.9s)
+[cb_level_tuned] F3_r1 ...
+[cb_level_tuned] F3_r1: MAE clean 37.57  all 93.62  MAPE clean 1.61%  day-debiased 32.56  bias/month 09:-0.007 10:-0.011  (32.8s)
+[cb_level_tuned] F3_r2 ...
+[cb_level_tuned] F3_r2: MAE clean 37.39  all 93.45  MAPE clean 1.61%  day-debiased 32.61  bias/month 09:-0.007 10:-0.011  (31.9s)
+/home/dfbakin/Documents/spotter_assessment/src/freight/backtest.py:591: FutureWarning: The behavior of DataFrame concatenation with empty or all-NA entries is deprecated. In a future version, this will no longer exclude empty or all-NA columns when determining the result dtypes. To retain the old behavior, exclude the relevant entries before the concat operation.
+  rows = pd.concat([pd.read_csv(path), rows], ignore_index=True)
+=== summary 2026-09-30T01:27:42+05:00
+
+Final comparison (mean / sd over seeds)
+     experiment fold  n_runs  mae_clean_mean  mae_clean_sd  mae_all_mean  mape_clean_mean  rmse_all_mean  mae_debiased_mean  bias_m1_mean  bias_m2_mean
+yardstick_level   F1       1           82.19          0.00        135.58             3.37         639.25              73.20     -1.18e-02         -0.02
+yardstick_level   F2       1           83.27          0.00        134.82             3.57         628.17              72.93      7.03e-03          0.03
+yardstick_level   F3       1           74.07          0.00        129.61             3.13         636.13              71.68     -9.62e-03         -0.01
+       cb_level   F1       3           49.42          0.30        103.15             1.91         633.01              28.92     -8.50e-03         -0.02
+       cb_level   F2       3           60.60          0.54        112.35             2.44         620.77              41.19      6.53e-03          0.03
+       cb_level   F3       3           34.82          0.15         90.91             1.50         629.93              29.36     -7.54e-03         -0.01
+  cb_level_noqs   F1       3           50.75          0.23        104.42             1.99         632.54              34.43     -1.07e-02         -0.02
+  cb_level_noqs   F2       3           50.52          0.37        102.48             2.14         619.26              31.39      5.20e-03          0.03
+  cb_level_noqs   F3       3           37.45          0.10         93.50             1.61         630.13              32.56     -6.78e-03         -0.01
+ cb_level_tuned   F1       3           50.75          0.23        104.42             1.99         632.54              34.43     -1.07e-02         -0.02
+ cb_level_tuned   F2       3           50.52          0.37        102.48             2.14         619.26              31.39      5.20e-03          0.03
+ cb_level_tuned   F3       3           37.45          0.10         93.50             1.61         630.13              32.56     -6.78e-03         -0.01
+
+F3 slices (clean rows, mean over seeds)
+     experiment         slice     group      n  mae_mean  mae_sd  mape_mean  median_bias_mean  n_runs
+yardstick_level     equipment   Dry Van 5275.0     67.89     NaN       3.03         -8.47e-03       1
+yardstick_level     equipment   Flatbed 1746.0     80.56     NaN       3.35         -1.51e-02       1
+yardstick_level     equipment    Reefer 2358.0     83.11     NaN       3.20         -1.16e-02       1
+yardstick_level distance_band     0-150  184.0     11.15     NaN       3.51         -1.90e-02       1
+yardstick_level distance_band   150-300  585.0     20.55     NaN       3.28         -1.53e-02       1
+yardstick_level distance_band   300-500 1285.0     29.90     NaN       3.02         -1.29e-02       1
+yardstick_level distance_band   500-750 1476.0     45.25     NaN       3.19         -1.11e-02       1
+yardstick_level distance_band  750-1000 1452.0     59.20     NaN       3.10         -8.86e-03       1
+yardstick_level distance_band 1000-1500 1735.0     79.62     NaN       3.11         -7.91e-03       1
+yardstick_level distance_band 1500-2000 1149.0    111.37     NaN       3.13         -6.44e-03       1
+yardstick_level distance_band 2000-2500  958.0    136.89     NaN       3.14         -1.03e-02       1
+yardstick_level distance_band     2500+  555.0    166.19     NaN       3.09         -1.01e-02       1
+       cb_level     equipment   Dry Van 5275.0     30.47    0.16       1.40         -7.56e-03       3
+       cb_level     equipment   Flatbed 1746.0     45.31    0.84       1.85         -1.46e-02       3
+       cb_level     equipment    Reefer 2358.0     36.78    0.10       1.44         -9.25e-03       3
+       cb_level distance_band     0-150  184.0      5.50    0.12       1.71         -1.34e-02       3
+       cb_level distance_band   150-300  585.0      9.73    0.16       1.57         -1.13e-02       3
+       cb_level distance_band   300-500 1285.0     14.89    0.15       1.51         -1.10e-02       3
+       cb_level distance_band   500-750 1476.0     22.44    0.23       1.58         -9.57e-03       3
+       cb_level distance_band  750-1000 1452.0     28.63    0.36       1.49         -8.82e-03       3
+       cb_level distance_band 1000-1500 1735.0     38.95    0.12       1.51         -8.55e-03       3
+       cb_level distance_band 1500-2000 1149.0     50.90    0.18       1.42         -8.02e-03       3
+       cb_level distance_band 2000-2500  958.0     61.95    0.23       1.41         -8.45e-03       3
+       cb_level distance_band     2500+  555.0     73.15    0.91       1.35         -8.36e-03       3
+  cb_level_noqs     equipment   Dry Van 5275.0     33.36    0.04       1.52         -7.28e-03       3
+  cb_level_noqs     equipment   Flatbed 1746.0     47.61    0.21       1.97         -1.46e-02       3
+  cb_level_noqs     equipment    Reefer 2358.0     39.09    0.22       1.55         -1.00e-02       3
+  cb_level_noqs distance_band     0-150  184.0      6.04    0.08       1.85         -1.57e-02       3
+  cb_level_noqs distance_band   150-300  585.0     11.47    0.11       1.84         -1.29e-02       3
+  cb_level_noqs distance_band   300-500 1285.0     16.40    0.10       1.66         -1.12e-02       3
+  cb_level_noqs distance_band   500-750 1476.0     23.29    0.09       1.63         -9.62e-03       3
+  cb_level_noqs distance_band  750-1000 1452.0     30.03    0.16       1.56         -8.74e-03       3
+  cb_level_noqs distance_band 1000-1500 1735.0     41.34    0.19       1.61         -8.43e-03       3
+  cb_level_noqs distance_band 1500-2000 1149.0     55.60    0.52       1.55         -7.89e-03       3
+  cb_level_noqs distance_band 2000-2500  958.0     67.21    0.44       1.53         -7.84e-03       3
+  cb_level_noqs distance_band     2500+  555.0     79.94    0.59       1.48         -7.61e-03       3
+ cb_level_tuned     equipment   Dry Van 5275.0     33.36    0.04       1.52         -7.28e-03       3
+ cb_level_tuned     equipment   Flatbed 1746.0     47.61    0.21       1.97         -1.46e-02       3
+ cb_level_tuned     equipment    Reefer 2358.0     39.09    0.22       1.55         -1.00e-02       3
+ cb_level_tuned distance_band     0-150  184.0      6.04    0.08       1.85         -1.57e-02       3
+ cb_level_tuned distance_band   150-300  585.0     11.47    0.11       1.84         -1.29e-02       3
+ cb_level_tuned distance_band   300-500 1285.0     16.40    0.10       1.66         -1.12e-02       3
+ cb_level_tuned distance_band   500-750 1476.0     23.29    0.09       1.63         -9.62e-03       3
+ cb_level_tuned distance_band  750-1000 1452.0     30.03    0.16       1.56         -8.74e-03       3
+ cb_level_tuned distance_band 1000-1500 1735.0     41.34    0.19       1.61         -8.43e-03       3
+ cb_level_tuned distance_band 1500-2000 1149.0     55.60    0.52       1.55         -7.89e-03       3
+ cb_level_tuned distance_band 2000-2500  958.0     67.21    0.44       1.53         -7.84e-03       3
+ cb_level_tuned distance_band     2500+  555.0     79.94    0.59       1.48         -7.61e-03       3
+
+wrote final_comparison.csv, final_month_bias.csv, final_slices_f3.csv to /home/dfbakin/Documents/spotter_assessment/artifacts/tuning
+=== DONE 2026-09-30T01:27:45+05:00

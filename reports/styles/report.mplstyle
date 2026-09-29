@@ -1,0 +1,32 @@
+# Copied verbatim from the PKMS vault house style (~/Documents/PKMS/reports/styles/report.mplstyle); do not edit here.
+# PKMS shared matplotlib style — mirror of the LaTeX house palette (common.tex).
+# Use from a deck:  import matplotlib.pyplot as plt; plt.style.use("../styles/report.mplstyle")
+# or:               from styles.pkms_palette import use_style; PAL = use_style()
+
+font.size: 10
+axes.titlesize: 11
+axes.labelsize: 10
+legend.fontsize: 9
+xtick.labelsize: 9
+ytick.labelsize: 9
+
+axes.spines.top: False
+axes.spines.right: False
+axes.edgecolor: 616161
+axes.labelcolor: 1A2A3A
+text.color: 1A2A3A
+xtick.color: 616161
+ytick.color: 616161
+
+axes.grid: True
+axes.grid.axis: y
+grid.color: D9D9D9
+grid.linewidth: 0.6
+
+legend.frameon: False
+figure.dpi: 150
+savefig.dpi: 200
+savefig.bbox: tight
+
+# Accent cycle: blue, green, red, amber, gray
+axes.prop_cycle: cycler('color', ['1565C0', '2E7D32', 'C62828', 'F9A825', '616161'])

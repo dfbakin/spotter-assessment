@@ -1,0 +1,9 @@
+# Quarto render state and intermediates (PDFs in _output/ are kept)
+/.quarto/
+**/*.quarto_ipynb
+*_files/
+# Intermediate LaTeX from `-M keep-tex:true` or a failed render
+/deck.tex
+/report.tex
+*.log
+*.aux

@@ -1,0 +1,71 @@
+{
+  "chosen_w": 1.0,
+  "gate": {
+    "rule": "blend beats cb_level_noqs on F1+F2 mean clean MAE by more than $0.5",
+    "gain": 0.0,
+    "passes": false
+  },
+  "tabpack_seeds": [
+    0,
+    1,
+    2
+  ],
+  "catboost_seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "catboost_reproduces_submission_max_abs_dev": 0.0,
+  "export_L_max_abs_dev_vs_final_model": 4.845886018844947e-08,
+  "validation": {
+    "n": 12000,
+    "corr_tabpack_vs_catboost": 0.999922857447718,
+    "median_ratio_tabpack_over_catboost": 1.0042012282255575,
+    "median_ratio_blend_over_catboost": 1.0,
+    "p99_abs_log_ratio_blend_vs_catboost": 0.0,
+    "n_blend_differs_gt_5pct": 0,
+    "by_city_status": {
+      "cold": {
+        "n": 1447,
+        "median_ratio_tabpack_over_catboost": 1.0041697891763532,
+        "p90_abs_log_ratio_tabpack_vs_catboost": 0.018142209836000216
+      },
+      "warm": {
+        "n": 10553,
+        "median_ratio_tabpack_over_catboost": 1.0042026098643544,
+        "p90_abs_log_ratio_tabpack_vs_catboost": 0.011048559122731002
+      }
+    }
+  },
+  "december_chart": {
+    "catboost": {
+      "min": 831.844155598069,
+      "max": 883.9248355741004,
+      "mean": 852.8768059579298
+    },
+    "tabpack": {
+      "min": 835.0164265554678,
+      "max": 888.7583700116369,
+      "mean": 857.2778622502334
+    },
+    "blend": {
+      "min": 831.844155598069,
+      "max": 883.9248355741004,
+      "mean": 852.8768059579298
+    }
+  },
+  "files": {
+    "tabpack": [
+      "artifacts/tabpack/final/validation_predictions_tabpack.csv",
+      "artifacts/tabpack/final/december_chart_predictions_tabpack.csv"
+    ],
+    "blend": [
+      "artifacts/tabpack/final/validation_predictions_blend.csv",
+      "artifacts/tabpack/final/december_chart_predictions_blend.csv"
+    ],
+    "components": "artifacts/tabpack/final/final_components.csv"
+  },
+  "note": "The submission files in the project root were not modified."
+}

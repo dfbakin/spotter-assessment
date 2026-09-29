@@ -1,0 +1,31 @@
+% The model as a block diagram: inputs -> L(date) (linear market level) and f(x)
+% (cross-sectional CatBoost with L as its baseline) -> sum on the log scale -> rate.
+% Width follows \linewidth (node widths are fractions of it); colours from styles/common.tex.
+\begingroup
+\sffamily
+\pgfmathsetlengthmacro{\dcU}{\linewidth/100}%
+\pgfmathsetlengthmacro{\dcInpW}{0.25\linewidth}%
+\pgfmathsetlengthmacro{\dcBlkW}{0.19\linewidth}%
+\pgfmathsetlengthmacro{\dcBlkH}{0.105\linewidth}%
+\begin{tikzpicture}[x=\dcU, y=\dcU, >=Stealth, font=\scriptsize,
+  dcinp/.style={draw=accentgray!60, fill=white, rounded corners=2pt, align=left,
+              text width=\dcInpW, inner sep=3pt, text=pkmsink},
+  dcblk/.style={rounded corners=2pt, align=center, text width=\dcBlkW, inner sep=4pt,
+              text=white, minimum height=\dcBlkH},
+  dcout/.style={draw=pkmsink, fill=surface, rounded corners=2pt, align=center,
+              inner sep=4pt, text=pkmsink},
+  dcarr/.style={->, thick, accentgray}]
+  \node[dcinp] (in1) at (13,7.5) {\textbf{date} $\cdot$ day's mean\\\texttt{market\_index}\\{\color{accentgray}(known in advance)}};
+  \node[dcinp] (in2) at (13,-7.5) {\textbf{load}: lane, equipment,\\weight + flags, geometry,\\weekday, day of month};
+  \node[dcblk, fill=accentblue] (L) at (46,7.5) {\textbf{$\boldsymbol{L}$(date)}\\[1pt]OLS on 4 terms\\extrapolates};
+  \node[dcblk, fill=accentgreen] (f) at (46,-7.5) {\textbf{$\boldsymbol{f}$(x)}\\[1pt]CatBoost\\cross-section only};
+  \node[circle, draw=pkmsink, thick, fill=white, inner sep=1pt, font=\normalsize] (sum) at (68,0) {$+$};
+  \node[dcout] (y) at (88,0) {$\log$ rate / mile\\[1pt]$\times$ distance\\[1pt]$\Rightarrow$ \textbf{rate (\$)}};
+  \draw[dcarr] (in1) -- (L);
+  \draw[dcarr] (in2) -- (f);
+  \draw[->, thick, accentblue, densely dashed] (L) -- node[right, font=\tiny, text=accentblue] {baseline} (f);
+  \draw[dcarr] (L.east) -| (sum.north);
+  \draw[dcarr] (f.east) -| (sum.south);
+  \draw[dcarr] (sum) -- (y);
+\end{tikzpicture}%
+\endgroup

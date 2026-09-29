@@ -1,0 +1,371 @@
+---
+title: "Freight rate prediction"
+subtitle: "Spotter · Machine Learning Engineer assessment"
+author: "Denis Bakin"
+date: today
+date-format: "D MMMM YYYY"
+engine: markdown
+format:
+  beamer:
+    theme: default
+    colortheme: default
+    fonttheme: default
+    pdf-engine: xelatex
+    aspectratio: 169
+    slide-level: 2
+    include-in-header:
+      - styles/common.tex
+      - styles/header-pkms.tex
+---
+
+## The result in one slide
+
+```{=latex}
+\begin{center}
+\begin{tikzpicture}[
+  tile/.style={fill=surface, rounded corners=3pt, minimum width=0.30\linewidth,
+               minimum height=2.55cm, inner sep=6pt, align=center, anchor=north west},
+  big/.style={font=\LARGE\bfseries, text=accentblue},
+  lab/.style={font=\footnotesize, text=pkmsink, text width=0.27\linewidth, align=center}]
+  \node[tile] (a) at (0,0) {};
+  \node[tile] (b) at ([xshift=0.045\linewidth]a.north east) {};
+  \node[tile] (c) at ([xshift=0.045\linewidth]b.north east) {};
+  \node[big] at ([yshift=-0.75cm]a.north) {\$37.5};
+  \node[lab] at ([yshift=0.62cm]a.south) {MAE on the Sep--Oct holdout (clean rows), MAPE 1.61\%};
+  \node[big] at ([yshift=-0.75cm]b.north) {2.35\% $\rightarrow$ 1.61\%};
+  \node[lab] at ([yshift=0.62cm]b.south) {holdout MAPE: CatBoost with a time coordinate $\rightarrow$ level decomposition};
+  \node[big] at ([yshift=-0.75cm]c.north) {\$832--884};
+  \node[lab] at ([yshift=0.62cm]c.south) {December chart: weekly wave, gentle trend, quarter-end ramp};
+\end{tikzpicture}
+\end{center}
+```
+
+- **Validation:** forward in time only; every choice made on two early folds; the Sep--Oct fold scored once.
+- **Model:** log rate per mile $=$ market level $L(\text{date})$ $+$ CatBoost for the cross-section.
+- **Tuning** changed little: 51 Optuna trials, CatBoost defaults kept.
+
+# Problem and data
+
+## The task
+
+:::: {.columns}
+::: {.column width="54%"}
+
+Predict **`posted_rate`**, the USD price of one truck load, from:
+
+- **Lane:** pickup and delivery city, their coordinates, distance
+- **Load:** equipment (Dry Van / Reefer / Flatbed), weight
+- **Time and market:** date, `market_index` (daily, market-wide), `quote_signal` (weak, per load)
+
+:::
+::: {.column width="46%"}
+
+### Data
+
+- **Labelled:** 48,000 loads, Jan--Oct 2025
+- **Predict:** 12,000 loads, Nov--Dec 2025; the metric is undisclosed
+- **December chart:** Lexington $\rightarrow$ Fort Wayne, 360 mi, Dry Van, 32,000 lb; one prediction per day
+
+:::
+::::
+
+## Key EDA findings
+
+- **Out of time:** validation is Nov--Dec and labels end on 31 Oct $\Rightarrow$ time-based splits only.
+- **Unseen cities:** 8 cities appear only in validation (12.1% of its rows) $\Rightarrow$ use coordinates and distance, not city IDs alone.
+- **`market_index`** is one market-wide value per day with a weekly cycle (Thu peak, Sun trough); correlation 0.64 with the daily median rate per mile.
+- **`quote_signal`** is weak (correlation $\approx 0.1$), with no sign of leakage.
+- **Drift:** the rate level rises $\approx 6\%$ from Jan to Oct at a similar `market_index`; quarter-end spikes.
+- **Low noise floor:** within lane $\times$ equipment $\times$ week, rate per mile varies by $\approx 2.2\%$ (CV).
+
+## Data quality: what we fix and how
+
+```{=latex}
+\small\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{@{}l r l@{}}
+\toprule
+Issue (48,000 labelled loads) & Rows & Handling \\
+\midrule
+Corrupted rate: $\times$2.5--5.5 or $\times$0.2--0.45 & 677 (1.4\%) & drop (training, clean metrics) \\
+Negative weight (a sign flip) & 292 (0.6\%) & absolute value + flag \\
+Weight at the 47,500 lb cap / 5,000 lb floor & 1,204 / 32 & keep the value + flag \\
+Missing weight & 300 (0.6\%) & keep NaN + flag \\
+Missing \texttt{market\_index} & 374 (0.8\%) & that day's mean + flag \\
+Distorted coordinates, consistent per city & all & use as internal geometry \\
+\bottomrule
+\end{tabular}
+
+\vspace{0.8em}
+{\footnotesize\color{accentgray} Corrupted labels: $|\log(\text{rpm} / \text{lane reference})| > \log 1.6$, in an empty gap (genuine $<0.23$, corrupted $>0.73$).}
+```
+
+# Validation
+
+## Validation design: forward in time only
+
+```{=latex}
+\begin{center}
+\def\tlKeyGap{4mm}
+\input{figures/validation-timeline.tex}
+\end{center}
+\vspace{0.3em}
+{\small Validation is out of time: every fold trains on the past and tests on the next two months.}
+```
+
+## Split protocol
+
+:::: {.columns}
+::: {.column width="52%"}
+
+- **Select** on F1 + F2 only: the model design, the features and the hyperparameters.
+- **Report** F3 (Sep--Oct) once, with the final choice.
+- **Refit** on all clean Jan--Oct loads (47,323), 5 seeds; predict Nov--Dec.
+- **Fixed iterations:** no early stopping on a reported fold.
+- **Seeds:** 2--3 per configuration, mean $\pm$ sd.
+
+:::
+::: {.column width="48%"}
+
+### Cold-start slice
+
+On F3, remove every training row that touches 8 random cities (2 draws): held-out cities \$40.3 MAE vs \$34.4 for the rest.
+
+### Metrics
+
+MAE in \$ on clean rows (primary), plus MAPE, all-row MAE and RMSE; month bias as a diagnostic.
+
+:::
+::::
+
+# Model and results
+
+## Plain trees miss the second month
+
+:::: {.columns}
+::: {.column width="56%"}
+
+```{=latex}
+\def\mbShowFinal{0}
+\def\mbHeight{5.0cm}
+\input{figures/month-bias.tex}
+```
+
+:::
+::: {.column width="44%"}
+
+- **First test month:** $\approx$ 1% MAPE (May, July).
+- **Second month:** 5.7--6.5% MAPE, up to 6.6% too low.
+- Trees **cannot extrapolate** the rising price level.
+- **Month proxies** (quote signal's monthly level, days to quarter end, trailing averages) let them reuse old levels.
+- Adding time $t$: F3 MAPE 2.35%, but June still $-7.2\%$.
+
+:::
+::::
+
+## The fix: split the price into level and cross-section
+
+```{=latex}
+\vspace{-0.6em}
+\[
+\log\frac{\text{rate}}{\text{distance}} \;=\;
+\underbrace{\beta_0 + \beta_{\text{mi}}\,\bar m(d) + \beta_t\, t + \beta_{\text{qe}}\, q(d)}_{L(\text{date}):\ \text{market level, OLS}}
+\;+\; \underbrace{f(\mathbf{x})}_{\text{CatBoost}}
+\]
+\vspace{0.1em}
+\begin{center}
+\input{figures/decomposition.tex}
+\end{center}
+{\scriptsize\color{accentgray} $\bar m$: day's mean market index $\cdot$ $t$: days since 1 Jan $\cdot$ $q$: quarter-end ramp $\cdot$ quote signal dropped from the trees}
+```
+
+## The market level $L(\text{date})$
+
+:::: {.columns}
+::: {.column width="64%"}
+
+```{=latex}
+\includegraphics[width=\linewidth]{../artifacts/backtest/level_index.png}
+```
+
+:::
+::: {.column width="36%"}
+
+- **Weighted $R^2$ 0.96** over 304 days.
+- **Market index:** $+0.1 \Rightarrow +1.2\%$.
+- **Trend:** $+0.51\%$ per 30 days.
+- **Quarter-end ramp:** $+3.85\%$ on a quarter's last day.
+- Every term is **known in advance**, so $L$ extrapolates.
+
+:::
+::::
+
+## Results on the F3 holdout (Sep--Oct)
+
+:::: {.columns}
+::: {.column width="62%"}
+
+```{=latex}
+\def\fmaeHeight{4.6cm}
+\def\fmaeAxisW{0.52\linewidth}
+\input{figures/f3-mae.tex}
+```
+
+:::
+::: {.column width="38%"}
+
+- **\$37.5 MAE, 1.61% MAPE:** half the yardstick's error.
+- **Seed noise:** \$0.1--0.5.
+- **Month bias:** $-0.7\%$ / $-1.1\%$, was $-2.5\%$ / $-6.5\%$.
+- **Error $\approx$ 1.6%** of the rate at every distance; Flatbed hardest.
+
+:::
+::::
+
+## Tuning: the hyperparameters barely matter
+
+:::: {.columns}
+::: {.column width="55%"}
+
+```{=latex}
+\small\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{@{}l r r r@{}}
+\toprule
+F1+F2, 3 seeds & day-debiased & plain & fit (s) \\
+\midrule
+best trial (\#36) & 32.57 & 50.53 & 65.5 \\
+CatBoost defaults & 32.91 & 50.63 & 23.7 \\
+\midrule
+gain & 0.34 & 0.10 & $\times$2.8 \\
+\bottomrule
+\end{tabular}
+
+\vspace{0.8em}
+{\footnotesize MAE in \$. Day-debiased: each test day's median error removed, so the score isolates the trees.}
+```
+
+:::
+::: {.column width="45%"}
+
+- **Ablation:** masking weight costs \$26.6, coordinates \$1.9, every other family $<$ \$0.5.
+- **Optuna:** 51 trials, TPE + median pruner.
+- Gain inside the \$0.5 tie rule, fits $\approx 3\times$ slower $\Rightarrow$ **defaults kept**.
+- The decomposition moved MAPE 2.35% $\rightarrow$ 1.61%.
+
+:::
+::::
+
+## TabPack: a stronger learner is not the bottleneck
+
+:::: {.columns}
+::: {.column width="53%"}
+
+```{=latex}
+\input{figures/tabpack-f3.tex}
+
+\vspace{0.5em}
+{\scriptsize\color{accentgray} Mean over 3 seeds. Day-debiased: each test day's median error removed (cross-section only).}
+```
+
+:::
+::: {.column width="47%"}
+
+- **TabPack** (ICML 2026): 64 MLPs, sampled hyperparameters, greedy online ensemble; paper config, 38 min on a rented GPU.
+- **Without $L$:** second month $-3.0\%$, the plain-trees failure.
+- **In CatBoost's slot:** cross-section \$0.7 better, level offset worse.
+- **Blend on F1+F2:** $w = 1$, CatBoost alone; gate fails $\Rightarrow$ **submission unchanged**.
+
+:::
+::::
+
+# December chart
+
+## December 2025: Lexington $\rightarrow$ Fort Wayne
+
+```{=latex}
+\begin{center}
+\IfFileExists{../scorer_results/candidate_december.png}{%
+  \includegraphics[width=\linewidth,height=0.66\textheight,keepaspectratio]{../scorer_results/candidate_december.png}%
+}{%
+  \begin{tikzpicture}
+    \node[draw=accentgray, densely dashed, fill=surface, rounded corners=2pt,
+          minimum width=0.92\linewidth, minimum height=0.56\textheight,
+          align=center, text=accentgray, font=\small]
+      {\texttt{scorer\_results/candidate\_december.png} does not exist yet.\\[3pt]
+       Run \texttt{make all} (or \texttt{make score}) to create it.};
+  \end{tikzpicture}%
+}
+\end{center}
+\vspace{0.2em}
+{\small Fixed lane: 360 mi, Dry Van, 32{,}000 lb; only the date changes. \$831.84 on Mon 1 Dec to \$883.92 on Wed 31 Dec, mean \$852.88.}
+```
+
+## What shapes December
+
+```{=latex}
+\def\dnHeight{3.7cm}
+\input{figures/december-neutral.tex}
+\vspace{0.2em}
+```
+
+:::: {.columns}
+::: {.column width="50%"}
+
+- **Inputs, not labels:** each day's mean `market_index` from `validation.csv`.
+- **Weights frozen** at 31 Oct.
+
+:::
+::: {.column width="50%"}
+
+- **Wave** $\approx$ \$19; **trend** $+0.51\%$ / 30 days; **ramp** $+3.85\%$ by 31 Dec.
+- **Neutral market:** within \$11.4, same mean.
+
+:::
+::::
+
+# Summary
+
+## Takeaways and next steps
+
+:::: {.columns}
+::: {.column width="52%"}
+
+### Takeaways
+
+- Validate the way the model will be used: forward in time, F3 scored once.
+- **Structure beat tuning:** the level decomposition took F3 MAPE from 2.35% to 1.61%.
+- **The learner is not the bottleneck:** TabPack was worth $\approx$ \$1, the decomposition $\approx$ \$20.
+- Every data fix is explicit and flagged.
+- December: weekly wave + trend + quarter-end ramp.
+
+:::
+::: {.column width="48%"}
+
+### Limits $\rightarrow$ next steps
+
+- Holidays not modelled $\rightarrow$ holiday priors.
+- Trend risk bounded: freezing $t$ lowers mid-Dec by $\approx 0.8\%$.
+- $\beta_{\text{mi}}$ and $\beta_t$ trade off over short windows.
+- Flatbed weakest; metric unknown.
+- Refit TabPack on train + val, or blend it on a level-corrected target; monotone weight constraint.
+
+:::
+::::
+
+## Backup: code map
+
+```{=latex}
+\footnotesize\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.28\linewidth} >{\raggedright\arraybackslash}p{0.36\linewidth} >{\raggedright\arraybackslash}p{0.29\linewidth}@{}}
+\toprule
+File & Key names & Role \\
+\midrule
+\texttt{src/freight/outliers.py} & \texttt{RpmReference}, \texttt{flag\_corrupted} & robust lane reference, corrupted labels \\
+\texttt{src/freight/split.py} & \texttt{Fold}, \texttt{get\_folds}, \texttt{cold\_start\_holdout} & forward-time folds, cold-start cities \\
+\texttt{src/freight/level.py} & \texttt{MarketLevel}, \texttt{qe\_ramp} & the market level $L(\text{date})$ \\
+\texttt{src/freight/models.py} & \texttt{LevelCatBoostRate} & CatBoost with $L$ as baseline \\
+\texttt{src/freight/final.py} & \texttt{fit\_final}, \texttt{predict\_december} & final fit, deliverables \\
+\texttt{scripts/tabpack/} & \texttt{run\_all.sh}, \texttt{blend.py} & TabPack check: runs, tables, blend + gate \\
+\texttt{Makefile} & \texttt{make all}, \texttt{make research} & tests $\rightarrow$ train $\rightarrow$ predict $\rightarrow$ score $\rightarrow$ sanity \\
+\bottomrule
+\end{tabular}
+```

@@ -1,0 +1,7 @@
+project:
+  output-dir: _output
+  # Render only the three documents (not README.md) on a bare `quarto render`.
+  render:
+    - report.qmd
+    - deck.qmd
+    - deck-long.qmd

@@ -1,0 +1,162 @@
+{
+  "created": "2026-09-30T01:19:49",
+  "base_experiment": "cb_level_noqs",
+  "excluded_families": [],
+  "tree_features": [
+    "pickup",
+    "delivery",
+    "lane",
+    "equipment",
+    "pickup_lat",
+    "pickup_lon",
+    "delivery_lat",
+    "delivery_lon",
+    "haversine_mi",
+    "bearing_deg",
+    "delta_lat",
+    "delta_lon",
+    "distance",
+    "log_distance",
+    "circuity",
+    "weight",
+    "weight_missing",
+    "weight_was_negative",
+    "weight_at_cap",
+    "weight_at_floor",
+    "mi_dev",
+    "mi_missing",
+    "dow",
+    "dom"
+  ],
+  "params": {
+    "depth": 6,
+    "learning_rate": 0.05,
+    "iterations": 2000,
+    "l2_leaf_reg": 3.0,
+    "random_strength": 1.0,
+    "border_count": 254,
+    "one_hot_max_size": 2,
+    "bootstrap_type": "MVS",
+    "grow_policy": "SymmetricTree",
+    "subsample": 0.8
+  },
+  "source": {
+    "kind": "default",
+    "trial_number": 0,
+    "study_name": "cb_level_noqs_f12_day_debiased",
+    "storage": "artifacts/tuning/optuna_study.db",
+    "n_trials": 51,
+    "states": {
+      "COMPLETE": 32,
+      "PRUNED": 18,
+      "FAIL": 1
+    },
+    "wall_clock_minutes": 909.7,
+    "trial_minutes": 909.4
+  },
+  "objective": "mean over F1, F2 of the day-debiased clean MAE ($), CatBoost seed 0",
+  "selection": {
+    "rule": "re-evaluate the defaults and the top trials with seeds [0, 1, 2] on F1+F2; best mean day-debiased MAE, ties within $0.5 broken by fit time",
+    "seeds": [
+      0,
+      1,
+      2
+    ],
+    "candidates": [
+      {
+        "candidate": "trial_36",
+        "trial": 36,
+        "mae_debiased_f12_mean": 32.567,
+        "mae_debiased_f12_sd": 0.059,
+        "mae_clean_f12_mean": 50.529,
+        "fit_seconds_f12": 65.467
+      },
+      {
+        "candidate": "trial_41",
+        "trial": 41,
+        "mae_debiased_f12_mean": 32.572,
+        "mae_debiased_f12_sd": 0.052,
+        "mae_clean_f12_mean": 50.579,
+        "fit_seconds_f12": 64.717
+      },
+      {
+        "candidate": "trial_46",
+        "trial": 46,
+        "mae_debiased_f12_mean": 32.63,
+        "mae_debiased_f12_sd": 0.075,
+        "mae_clean_f12_mean": 50.613,
+        "fit_seconds_f12": 44.35
+      },
+      {
+        "candidate": "trial_27",
+        "trial": 27,
+        "mae_debiased_f12_mean": 32.642,
+        "mae_debiased_f12_sd": 0.08,
+        "mae_clean_f12_mean": 50.609,
+        "fit_seconds_f12": 50.267
+      },
+      {
+        "candidate": "trial_35",
+        "trial": 35,
+        "mae_debiased_f12_mean": 32.645,
+        "mae_debiased_f12_sd": 0.063,
+        "mae_clean_f12_mean": 50.575,
+        "fit_seconds_f12": 81.65
+      },
+      {
+        "candidate": "default",
+        "trial": 0,
+        "mae_debiased_f12_mean": 32.91,
+        "mae_debiased_f12_sd": 0.045,
+        "mae_clean_f12_mean": 50.632,
+        "fit_seconds_f12": 23.7
+      }
+    ],
+    "chosen": "default"
+  },
+  "scores": {
+    "F1": {
+      "mae_debiased": {
+        "mean": 34.43345798653383,
+        "sd": 0.11047385356878271
+      },
+      "mae_clean": {
+        "mean": 50.747541864229525,
+        "sd": 0.22913175686649773
+      },
+      "mae_all": {
+        "mean": 104.42385566132414,
+        "sd": 0.2289808118617151
+      }
+    },
+    "F2": {
+      "mae_debiased": {
+        "mean": 31.386910313985638,
+        "sd": 0.04044703980625904
+      },
+      "mae_clean": {
+        "mean": 50.51714103474999,
+        "sd": 0.37434476758360324
+      },
+      "mae_all": {
+        "mean": 102.48259568043659,
+        "sd": 0.3680591036711001
+      }
+    },
+    "F1+F2": {
+      "mae_debiased": {
+        "mean": 32.91018415025974,
+        "sd": 0.045245397225540315
+      },
+      "mae_clean": {
+        "mean": 50.63234144948976,
+        "sd": 0.1541940218693884
+      },
+      "mae_all": {
+        "mean": 103.45322567088037,
+        "sd": 0.15463338791730089
+      }
+    }
+  },
+  "fit_seconds_per_fold": 23.7
+}

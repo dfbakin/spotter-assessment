@@ -1,0 +1,99 @@
+% Copied verbatim from the PKMS vault house style (~/Documents/PKMS/reports/styles/header-pkms.tex); do not edit here.
+% =====================================================================
+% Style B — "PKMS" : a custom, minimal Beamer theme (house palette)
+% A flat, left-aligned look: ink text on white, a single accent rule under
+% each frame title, a quiet footline, custom title + section pages.
+% Deck front-matter sets a neutral base (theme: default); everything is
+% overridden below, so it is robust to whatever base theme is loaded.
+% =====================================================================
+
+\setbeamertemplate{navigation symbols}{}
+
+% ---- Colors ----
+\setbeamercolor{normal text}{fg=pkmsink,bg=white}
+\setbeamercolor{structure}{fg=accentblue}
+\setbeamercolor{alerted text}{fg=accentred}
+\setbeamercolor{frametitle}{fg=pkmsink,bg=white}
+\setbeamercolor{title}{fg=pkmsink}
+\usebeamercolor[fg]{normal text}
+
+% ---- Fonts ----
+\setbeamerfont{title}{size=\huge,series=\bfseries}
+\setbeamerfont{subtitle}{size=\large,series=\mdseries}
+\setbeamerfont{frametitle}{size=\Large,series=\bfseries}
+\setbeamerfont{author}{size=\normalsize}
+\setbeamerfont{date}{size=\small}
+
+% ---- Frame title: left aligned, ink, thin accent rule underneath ----
+\setbeamertemplate{frametitle}{%
+  \vspace{0.7em}%
+  {\usebeamerfont{frametitle}\usebeamercolor[fg]{frametitle}\insertframetitle\par}%
+  \vspace{0.18em}%
+  {\color{accentblue}\rule{\textwidth}{1.2pt}}%
+  \vspace{-0.1em}%
+}
+
+% ---- Footline: author  ·  short title  ·  n / N ----
+\setbeamertemplate{footline}{%
+  \leavevmode%
+  \hbox to\paperwidth{%
+    \hspace{1.4em}%
+    {\color{accentgray}\scriptsize\insertshortauthor}%
+    \hfill%
+    {\color{accentgray}\scriptsize\insertshorttitle}%
+    \hfill%
+    {\color{accentgray}\scriptsize\insertframenumber\,/\,\inserttotalframenumber}%
+    \hspace{1.4em}%
+  }%
+  \vspace{0.7em}%
+}
+
+% ---- Title page ----
+\setbeamertemplate{title page}{%
+  \vbox{}\vfill
+  \begingroup
+    \raggedright
+    {\color{accentblue}\rule{0.18\textwidth}{3pt}\par}
+    \vspace{0.8em}
+    {\usebeamerfont{title}\usebeamercolor[fg]{title}\inserttitle\par}
+    \ifx\insertsubtitle\empty\else
+      \vspace{0.45em}
+      {\usebeamerfont{subtitle}\color{accentgray}\insertsubtitle\par}
+    \fi
+    \vspace{1.5em}
+    {\usebeamerfont{author}\insertauthor\par}
+    \vspace{0.2em}
+    {\color{accentgray}\small\insertinstitute\par}
+    \vspace{0.8em}
+    {\usebeamerfont{date}\color{accentgray}\insertdate\par}
+  \endgroup
+  \vfill
+}
+
+% ---- Section divider ----
+\AtBeginSection[]{%
+  \begin{frame}[plain,noframenumbering]
+    \vfill
+    \begingroup
+      \raggedright
+      {\color{accentblue}\rule{0.12\textwidth}{3pt}\par}
+      \vspace{0.7em}
+      {\usebeamerfont{frametitle}\color{pkmsink}\bfseries\insertsectionhead\par}
+    \endgroup
+    \vfill
+  \end{frame}
+}
+
+% ---- Blocks: solid accent titles on a light surface body ----
+\setbeamertemplate{blocks}[default]
+\setbeamercolor{block title}{fg=white,bg=accentblue}
+\setbeamercolor{block body}{fg=pkmsink,bg=surface}
+\setbeamercolor{block title alerted}{fg=white,bg=accentred}
+\setbeamercolor{block body alerted}{fg=pkmsink,bg=surface}
+\setbeamercolor{block title example}{fg=white,bg=accentgreen}
+\setbeamercolor{block body example}{fg=pkmsink,bg=surface}
+
+% ---- Itemize markers: small square in the accent color ----
+\setbeamertemplate{itemize item}{\raise0.18ex\hbox{\color{accentblue}\rule{0.7ex}{0.7ex}}}
+\setbeamertemplate{itemize subitem}{\color{accentgray}\textendash}
+\setbeamertemplate{itemize subsubitem}{\color{accentgray}\textperiodcentered}

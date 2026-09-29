@@ -1,0 +1,68 @@
+% Validation design: expanding forward-time folds, final refit, and the
+% out-of-time prediction window. Shared by deck.qmd and report.qmd via
+% \input{figures/validation-timeline.tex}. The width follows \linewidth;
+% colours come from styles/common.tex (house palette).
+% Set \def\tlKeyGap{...} before \input to change the gap between legend entries (default 5mm;
+% the decks use 4mm so the legend stays inside a 16:9 text width).
+\providecommand{\tlKeyGap}{5mm}%
+\begingroup
+\sffamily
+% left column: widest row label + its 2 mm offset + node inner sep
+\pgfmathsetlengthmacro{\tlLab}{width("\footnotesize\bfseries Final refit")+2mm+2.2mm}%
+\pgfmathsetlengthmacro{\tlRgt}{0.25cm}% small right margin
+\pgfmathsetlengthmacro{\tlM}{(\linewidth-\tlLab-\tlRgt)/12}% one month
+\begin{tikzpicture}[x=\tlM, y=-0.64cm, font=\scriptsize, >=Stealth,
+  bar/.style={rounded corners=1.5pt},
+  train/.style={bar, fill=accentblue},
+  tune/.style={bar, fill=accentamber},
+  hold/.style={bar, fill=accentgreen, draw=pkmsink, line width=1.2pt},
+  pred/.style={bar, fill=white, draw=pkmsink, densely dashed, thick},
+  rowlab/.style={anchor=east, font=\footnotesize\bfseries, text=pkmsink},
+  note/.style={anchor=west, text=accentgray, font=\scriptsize\itshape},
+  key/.style={minimum width=3.2mm, minimum height=2.4mm, inner sep=0pt,
+              rounded corners=1pt}]
+  % bar(row, from-month, to-month, style, label); months are 0 = Jan ... 12 = end of Dec
+  \def\tlbar#1#2#3#4#5{%
+    \path[#4] (#2,#1-0.32) rectangle (#3,#1+0.32);
+    \node at ({(#2+#3)/2},#1) {#5};}
+  % ---- out-of-time band (Nov-Dec) and month grid ----
+  \fill[surface] (10,-1.45) rectangle (12,4.55);
+  \foreach \m in {0,...,12} \draw[accentgray!30, very thin] (\m,-0.55) -- (\m,4.55);
+  \foreach \mn [count=\i from 0] in {Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec}
+    \node[text=accentgray, text height=1.5ex, text depth=0.3ex] at (\i+0.5,-0.95) {\mn};
+  \draw[accentgray, thin] (0,-0.55) -- (12,-0.55);
+  \node[anchor=east, text=accentgray, font=\scriptsize, text height=1.5ex, text depth=0.3ex] at ([xshift=-2mm]0,-0.95) {2025};
+  % ---- rows ----
+  \node[rowlab] at ([xshift=-2mm]0,0) {F1};
+  \tlbar{0}{0}{4}{train}{\textcolor{white}{train}}
+  \tlbar{0}{4}{6}{tune}{\textcolor{pkmsink}{test}}
+  \node[note] at (6.1,0) {selection};
+  \node[rowlab] at ([xshift=-2mm]0,1) {F2};
+  \tlbar{1}{0}{6}{train}{\textcolor{white}{train}}
+  \tlbar{1}{6}{8}{tune}{\textcolor{pkmsink}{test}}
+  \node[note] at (8.1,1) {selection};
+  \node[rowlab] at ([xshift=-2mm]0,2) {F3};
+  \tlbar{2}{0}{8}{train}{\textcolor{white}{train}}
+  \tlbar{2}{8}{10}{hold}{\textcolor{white}{\bfseries holdout}}
+  \node[note, text=accentgreen, font=\scriptsize\bfseries] at (10.1,2) {reported};
+  \node[rowlab] at ([xshift=-2mm]0,3) {Final refit};
+  \tlbar{3}{0}{10}{train}{\textcolor{white}{refit on all clean labelled loads, same fixed iterations, 5 seeds}}
+  \node[rowlab] at ([xshift=-2mm]0,4) {Validation};
+  \tlbar{4}{10}{12}{pred}{\textcolor{pkmsink}{\bfseries predict}}
+  \node[anchor=east, text=accentgray, font=\scriptsize\itshape] at (9.85,4)
+    {weights frozen at 31 Oct $\cdot$ 12{,}000 loads + December chart};
+  \draw[->, thick, pkmsink] (10,3) -- (11,3) -- (11,3.66);
+  % ---- labels end at 31 Oct ----
+  \draw[pkmsink, densely dashed] (10,-0.55) -- (10,4.55);
+  \node[anchor=north, text=pkmsink, font=\scriptsize] at (10,4.6) {labels end 31 Oct};
+  % ---- legend ----
+  \node[key, fill=accentblue, anchor=west] (k1) at (0,5.75) {};
+  \node[anchor=west, text=pkmsink] (t1) at (k1.east) {train};
+  \node[key, fill=accentamber, anchor=west] (k2) at ([xshift=\tlKeyGap]t1.east) {};
+  \node[anchor=west, text=pkmsink] (t2) at (k2.east) {test on a selection fold};
+  \node[key, fill=accentgreen, draw=pkmsink, thick, anchor=west] (k3) at ([xshift=\tlKeyGap]t2.east) {};
+  \node[anchor=west, text=pkmsink] (t3) at (k3.east) {reported holdout};
+  \node[key, fill=white, draw=pkmsink, densely dashed, anchor=west] (k4) at ([xshift=\tlKeyGap]t3.east) {};
+  \node[anchor=west, text=pkmsink] (t4) at (k4.east) {out-of-time prediction};
+\end{tikzpicture}%
+\endgroup

@@ -1,0 +1,37 @@
+[ablation] full     F1: day-debiased 34.42  MAE clean 50.74  all 104.41  (22s)
+[ablation] full     F2: day-debiased 31.43  MAE clean 50.17  all 102.14  (31s)
+[ablation] full     F3: day-debiased 32.50  MAE clean 37.39  all 93.43  (38s)
+[ablation] city     F1: day-debiased 34.60  MAE clean 50.62  all 104.27  (18s)
+[ablation] city     F2: day-debiased 31.13  MAE clean 50.46  all 102.43  (24s)
+[ablation] city     F3: day-debiased 32.31  MAE clean 37.37  all 93.41  (30s)
+[ablation] lane     F1: day-debiased 34.46  MAE clean 50.80  all 104.48  (19s)
+[ablation] lane     F2: day-debiased 31.39  MAE clean 50.33  all 102.30  (25s)
+[ablation] lane     F3: day-debiased 32.39  MAE clean 37.21  all 93.25  (30s)
+[ablation] coords   F1: day-debiased 36.49  MAE clean 52.60  all 106.27  (21s)
+[ablation] coords   F2: day-debiased 33.18  MAE clean 50.92  all 102.90  (27s)
+[ablation] coords   F3: day-debiased 34.14  MAE clean 38.72  all 94.77  (34s)
+[ablation] crowfly  F1: day-debiased 34.47  MAE clean 50.64  all 104.30  (22s)
+[ablation] crowfly  F2: day-debiased 31.20  MAE clean 50.24  all 102.21  (30s)
+[ablation] crowfly  F3: day-debiased 32.43  MAE clean 37.31  all 93.35  (37s)
+[ablation] weight   F1: day-debiased 60.81  MAE clean 71.70  all 125.08  (23s)
+[ablation] weight   F2: day-debiased 58.22  MAE clean 69.27  all 121.00  (30s)
+[ablation] weight   F3: day-debiased 59.44  MAE clean 63.14  all 118.93  (37s)
+[ablation] dow_dom  F1: day-debiased 35.05  MAE clean 51.41  all 105.09  (22s)
+[ablation] dow_dom  F2: day-debiased 31.40  MAE clean 50.24  all 102.22  (30s)
+[ablation] dow_dom  F3: day-debiased 33.07  MAE clean 37.65  all 93.69  (37s)
+[ablation] mi_dev   F1: day-debiased 34.90  MAE clean 51.08  all 104.74  (23s)
+[ablation] mi_dev   F2: day-debiased 31.78  MAE clean 50.09  all 102.04  (30s)
+[ablation] mi_dev   F3: day-debiased 32.98  MAE clean 37.74  all 93.81  (37s)
+
+Ablation (default params, seed 0); decision on F1+F2 day-debiased MAE, F3 for information
+variant  n_features  mae_debiased_F1  mae_debiased_F2  mae_debiased_f12  delta_mae_debiased_f12  mae_debiased_F3  mae_clean_F1  mae_clean_F2  mae_clean_f12  delta_mae_clean_f12  mae_clean_F3 decision
+   full          24            34.42            31.43             32.92                0.00e+00            32.50         50.74         50.17          50.45                 0.00         37.39         
+   city          22            34.60            31.13             32.87               -5.85e-02            32.31         50.62         50.46          50.54                 0.09         37.37     keep
+   lane          23            34.46            31.39             32.92               -9.89e-04            32.39         50.80         50.33          50.57                 0.11         37.21     keep
+ coords          17            36.49            33.18             34.84                1.91e+00            34.14         52.60         50.92          51.76                 1.31         38.72     keep
+crowfly          22            34.47            31.20             32.83               -9.09e-02            32.43         50.64         50.24          50.44                -0.02         37.31     keep
+ weight          19            60.81            58.22             59.51                2.66e+01            59.44         71.70         69.27          70.49                20.03         63.14     keep
+dow_dom          22            35.05            31.40             33.23                3.03e-01            33.07         51.41         50.24          50.82                 0.37         37.65     keep
+ mi_dev          22            34.90            31.78             33.34                4.14e-01            32.98         51.08         50.09          50.58                 0.13         37.74     keep
+
+families improving F1+F2 day-debiased MAE by > $1: none -> keep the full set

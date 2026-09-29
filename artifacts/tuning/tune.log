@@ -1,0 +1,41 @@
+[I 2026-09-29 09:50:42,035] A new study created in RDB with name: cb_level_noqs_f12_day_debiased
+[tune] #  0 COMPLETE F1  34.42 F1+F2 32.92    | best 32.92 (#0) | d6 lr0.050 it2000 Symme MVS | 0.9 min
+[tune] #  1 COMPLETE F1  37.31 F1+F2 35.01    | best 32.92 (#0) | d7 lr0.085 it2600 Depth Berno | 2.6 min
+[tune] #  2 COMPLETE F1  34.98 F1+F2 33.32    | best 32.92 (#0) | d4 lr0.107 it3300 Symme MVS | 3.5 min
+[tune] #  3 COMPLETE F1  36.42 F1+F2 34.23    | best 32.92 (#0) | d9 lr0.050 it2500 Depth MVS | 6.6 min
+[tune] #  4 COMPLETE F1  35.31 F1+F2 33.83    | best 32.92 (#0) | d4 lr0.038 it1800 Symme Bayes | 7.1 min
+[tune] #  5 COMPLETE F1  35.21 F1+F2 33.75    | best 32.92 (#0) | d8 lr0.026 it1200 Symme Berno | 7.9 min
+[tune] #  6 COMPLETE F1  35.84 F1+F2 34.40    | best 32.92 (#0) | d4 lr0.036 it900 Symme MVS | 8.2 min
+[tune] #  7 COMPLETE F1  35.15 F1+F2 33.64    | best 32.92 (#0) | d4 lr0.085 it1500 Depth MVS | 8.5 min
+[tune] #  8 COMPLETE F1  34.96 F1+F2 33.06    | best 32.92 (#0) | d5 lr0.136 it2100 Symme Berno | 9.2 min
+[tune] #  9 COMPLETE F1  34.56 F1+F2 32.81    | best 32.81 (#9) | d8 lr0.047 it2600 Symme MVS | 11.0 min
+[tune] # 10 PRUNED   F1  35.96                | best 32.81 (#9) | d10 lr0.022 it3900 Depth Bayes | 12.4 min
+[tune] # 11 COMPLETE F1  34.44 F1+F2 32.78    | best 32.78 (#11) | d6 lr0.056 it2900 Symme MVS | 13.6 min
+[tune] # 12 COMPLETE F1  34.48 F1+F2 32.80    | best 32.78 (#11) | d7 lr0.062 it3100 Symme MVS | 15.3 min
+[tune] # 13 COMPLETE F1  34.37 F1+F2 32.69    | best 32.69 (#13) | d6 lr0.066 it3300 Symme MVS | 17.1 min
+[tune] # 14 COMPLETE F1  34.71 F1+F2 32.85    | best 32.69 (#13) | d6 lr0.072 it4000 Symme MVS | 19.2 min
+[tune] # 15 COMPLETE F1  34.57 F1+F2 32.79    | best 32.69 (#13) | d6 lr0.064 it3300 Symme Bayes | 20.9 min
+[tune] # 16 COMPLETE F1  34.62 F1+F2 32.97    | best 32.69 (#13) | d5 lr0.035 it3000 Symme MVS | 22.1 min
+[tune] # 17 PRUNED   F1  35.13                | best 32.69 (#13) | d7 lr0.110 it3700 Symme MVS | 23.0 min
+[tune] # 18 PRUNED   F1  35.70                | best 32.69 (#13) | d5 lr0.056 it3500 Depth Bayes | 23.5 min
+[tune] # 19 PRUNED   F1  35.46                | best 32.69 (#13) | d8 lr0.081 it2900 Symme Berno | 24.5 min
+[tune] # 20 PRUNED   F1  34.86                | best 32.69 (#13) | d6 lr0.042 it2300 Symme MVS | 24.9 min
+[tune] # 21 COMPLETE F1  34.45 F1+F2 32.79    | best 32.69 (#13) | d6 lr0.064 it3500 Symme Bayes | 27.2 min
+[tune] # 22 PRUNED   F1  35.16                | best 32.69 (#13) | d7 lr0.070 it3600 Symme Bayes | 28.3 min
+[tune] # 23 PRUNED   F1  35.06                | best 32.69 (#13) | d5 lr0.100 it2800 Symme Bayes | 28.9 min
+[tune] # 24 PRUNED   F1  34.73                | best 32.69 (#13) | d6 lr0.057 it3200 Symme Bayes | 29.7 min
+[tune] # 25 PRUNED   F1  35.17                | best 32.69 (#13) | d5 lr0.031 it3600 Symme Bayes | 30.4 min
+[tune] # 26 PRUNED   F1  36.25                | best 32.69 (#13) | d7 lr0.076 it3300 Depth MVS | 31.2 min
+[tune] # 27 COMPLETE F1  34.31 F1+F2 32.58    | best 32.58 (#27) | d6 lr0.059 it3800 Symme MVS | 33.4 min
+[tune] # 28 COMPLETE F1  34.30 F1+F2 32.64    | best 32.58 (#27) | d6 lr0.045 it3900 Symme MVS | 35.4 min
+[tune] # 29 COMPLETE F1  34.42 F1+F2 32.78    | best 32.58 (#27) | d5 lr0.046 it3900 Symme MVS | 37.3 min
+[tune] # 30 COMPLETE F1  34.35 F1+F2 32.70    | best 32.58 (#27) | d6 lr0.042 it4000 Symme MVS | 39.0 min
+[tune] # 31 COMPLETE F1  34.39 F1+F2 32.78    | best 32.58 (#27) | d6 lr0.041 it4000 Symme MVS | 40.8 min
+[tune] # 32 COMPLETE F1  34.31 F1+F2 32.64    | best 32.58 (#27) | d7 lr0.031 it3800 Symme MVS | 43.1 min
+[tune] # 33 COMPLETE F1  34.25 F1+F2 32.64    | best 32.58 (#27) | d7 lr0.028 it3800 Symme MVS | 45.8 min
+[tune] # 34 PRUNED   F1  34.71                | best 32.58 (#27) | d7 lr0.029 it3700 Depth MVS | 46.8 min
+[tune] # 35 COMPLETE F1  34.20 F1+F2 32.57    | best 32.57 (#35) | d8 lr0.021 it3800 Symme MVS | 50.3 min
+[tune] # 36 COMPLETE F1  34.17 F1+F2 32.55    | best 32.55 (#36) | d8 lr0.021 it3500 Symme Berno | 53.1 min
+[tune] # 37 COMPLETE F1  34.29 F1+F2 32.68    | best 32.55 (#36) | d9 lr0.020 it3500 Symme Berno | 57.2 min
+[tune] # 38 PRUNED   F1  35.71                | best 32.55 (#36) | d10 lr0.025 it3400 Depth Berno | 60.6 min
+[tune] # 39 PRUNED   F1  34.51                | best 32.55 (#36) | d9 lr0.024 it3700 Symme Berno | 62.8 min

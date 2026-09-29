@@ -1,0 +1,188 @@
+[2026-09-30 05:46:49] plan start: device gpu, n_models 64
+[2026-09-30 05:46:49] run tp_level_F1_s0 on gpu (n_models 64)
+[2026-09-30 18:28:57] plan start: device gpu, n_models 64
+[2026-09-30 18:28:57] run tp_level_F1_s0 on gpu (n_models 64)
+[2026-10-04 16:46:57] plan start: device gpu, n_models 64, d_block 384, batch 512, amp bfloat16, ns bfloat16, 36 runs
+[2026-10-04 16:46:57] run tp_level_F1_s0 on gpu (n_models 64, d_block 384, batch 512, amp bfloat16, ns bfloat16)
+[tp_level_F1_s0] test MAE clean 46.11 all 99.83 MAPE 1.84% debiased 34.13 | bias 2025-05:-0.0077 2025-06:-0.0200 | val MAE 32.72 | cuda:0 0.55 min, 89 epochs, ens 11
+[2026-10-04 16:47:37] export level-nolane F2
+[2026-10-04 16:47:38] run tp_level_F2_s0 on gpu (n_models 64, d_block 384, batch 512, amp bfloat16, ns bfloat16)
+[tp_level_F2_s0] test MAE clean 68.46 all 120.16 MAPE 2.91% debiased 30.60 | bias 2025-07:+0.0172 2025-08:+0.0366 | val MAE 39.55 | cuda:0 0.6 min, 57 epochs, ens 6
+[2026-10-04 16:48:21] run tp_level_F3_s0 on gpu (n_models 64, d_block 384, batch 512, amp bfloat16, ns bfloat16)
+[tp_level_F3_s0] test MAE clean 40.11 all 96.11 MAPE 1.72% debiased 31.84 | bias 2025-09:-0.0109 2025-10:-0.0135 | val MAE 27.96 | cuda:0 0.83 min, 60 epochs, ens 18
+[2026-10-04 16:49:17] run tp_standalone_F1_s0 on gpu (n_models 64, d_block 384, batch 512, amp bfloat16, ns bfloat16)
+[tp_standalone_F1_s0] test MAE clean 39.03 all 92.84 MAPE 1.58% debiased 36.35 | bias 2025-05:-0.0019 2025-06:-0.0141 | val MAE 26.37 | cuda:0 0.77 min, 113 epochs, ens 8
+[2026-10-04 16:50:10] export standalone F2
+[2026-10-04 16:50:11] run tp_standalone_F2_s0 on gpu (n_models 64, d_block 384, batch 512, amp bfloat16, ns bfloat16)
+[tp_standalone_F2_s0] test MAE clean 66.71 all 118.37 MAPE 3.31% debiased 67.20 | bias 2025-07:-0.0138 2025-08:-0.0183 | val MAE 21.05 | cuda:0 0.8 min, 79 epochs, ens 7
+[2026-10-04 16:51:06] export standalone F3
+[2026-10-04 16:51:07] run tp_standalone_F3_s0 on gpu (n_models 64, d_block 384, batch 512, amp bfloat16, ns bfloat16)
+[tp_standalone_F3_s0] test MAE clean 63.90 all 119.66 MAPE 2.59% debiased 29.60 | bias 2025-09:-0.0155 2025-10:-0.0317 | val MAE 31.19 | cuda:0 1.08 min, 80 epochs, ens 16
+[2026-10-04 16:52:19] run tp_level_F1_s1 on gpu (n_models 64, d_block 384, batch 512, amp bfloat16, ns bfloat16)
+[tp_level_F1_s1] test MAE clean 45.24 all 98.97 MAPE 1.82% debiased 34.29 | bias 2025-05:-0.0074 2025-06:-0.0191 | val MAE 32.97 | cuda:0 0.61 min, 98 epochs, ens 21
+[2026-10-04 16:53:02] run tp_level_F2_s1 on gpu (n_models 64, d_block 384, batch 512, amp bfloat16, ns bfloat16)
+[tp_level_F2_s1] test MAE clean 68.87 all 120.59 MAPE 2.94% debiased 30.93 | bias 2025-07:+0.0175 2025-08:+0.0368 | val MAE 38.52 | cuda:0 0.7 min, 64 epochs, ens 5
+[2026-10-04 16:53:50] run tp_level_F3_s1 on gpu (n_models 64, d_block 384, batch 512, amp bfloat16, ns bfloat16)
+[tp_level_F3_s1] test MAE clean 39.88 all 95.89 MAPE 1.71% debiased 31.88 | bias 2025-09:-0.0108 2025-10:-0.0133 | val MAE 28.00 | cuda:0 0.99 min, 72 epochs, ens 26
+[2026-10-04 16:54:57] export level-lanetopk F1
+[2026-10-04 16:54:58] run tp_level_lanetopk_F1_s0 on gpu (n_models 64, d_block 384, batch 512, amp bfloat16, ns bfloat16)
+[tp_level_lanetopk_F1_s0] test MAE clean 45.71 all 99.44 MAPE 1.82% debiased 34.35 | bias 2025-05:-0.0070 2025-06:-0.0193 | val MAE 32.98 | cuda:0 0.55 min, 87 epochs, ens 12
+[2026-10-04 16:55:38] export level-lanetopk F2
+[2026-10-04 16:55:39] run tp_level_lanetopk_F2_s0 on gpu (n_models 64, d_block 384, batch 512, amp bfloat16, ns bfloat16)
+[tp_level_lanetopk_F2_s0] test MAE clean 65.41 all 117.14 MAPE 2.83% debiased 30.65 | bias 2025-07:+0.0161 2025-08:+0.0356 | val MAE 39.76 | cuda:0 0.66 min, 66 epochs, ens 8
+[2026-10-04 16:56:25] run tp_level_lanetopk_F3_s0 on gpu (n_models 64, d_block 384, batch 512, amp bfloat16, ns bfloat16)
+[tp_level_lanetopk_F3_s0] test MAE clean 40.27 all 96.27 MAPE 1.73% debiased 31.90 | bias 2025-09:-0.0114 2025-10:-0.0133 | val MAE 28.08 | cuda:0 0.87 min, 65 epochs, ens 21
+[2026-10-04 16:57:24] export level-lanefull F1
+[2026-10-04 16:57:26] run tp_level_lanefull_F1_s0 on gpu (n_models 64, d_block 384, batch 512, amp bfloat16, ns bfloat16)
+[tp_level_lanefull_F1_s0] test MAE clean 45.79 all 99.53 MAPE 1.82% debiased 34.11 | bias 2025-05:-0.0075 2025-06:-0.0195 | val MAE 32.80 | cuda:0 0.79 min, 54 epochs, ens 8
+[2026-10-04 16:58:20] export level-lanefull F2
+[2026-10-04 16:58:22] run tp_level_lanefull_F2_s0 on gpu (n_models 64, d_block 384, batch 512, amp bfloat16, ns bfloat16)
+[tp_level_lanefull_F2_s0] test MAE clean 64.28 all 116.03 MAPE 2.79% debiased 30.11 | bias 2025-07:+0.0157 2025-08:+0.0348 | val MAE 40.02 | cuda:0 1.4 min, 82 epochs, ens 7
+[2026-10-04 16:59:52] export level-lanefull F3
+[2026-10-04 16:59:54] run tp_level_lanefull_F3_s0 on gpu (n_models 64, d_block 384, batch 512, amp bfloat16, ns bfloat16)
+[tp_level_lanefull_F3_s0] test MAE clean 40.22 all 96.22 MAPE 1.72% debiased 31.80 | bias 2025-09:-0.0113 2025-10:-0.0131 | val MAE 27.94 | cuda:0 1.69 min, 82 epochs, ens 24
+[2026-10-04 17:01:42] run tp_level_F1_s2 on gpu (n_models 64, d_block 384, batch 512, amp bfloat16, ns bfloat16)
+[tp_level_F1_s2] test MAE clean 45.83 all 99.56 MAPE 1.83% debiased 34.11 | bias 2025-05:-0.0076 2025-06:-0.0195 | val MAE 32.88 | cuda:0 0.58 min, 99 epochs, ens 18
+[2026-10-04 17:02:23] run tp_level_F2_s2 on gpu (n_models 64, d_block 384, batch 512, amp bfloat16, ns bfloat16)
+[tp_level_F2_s2] test MAE clean 64.92 all 116.67 MAPE 2.78% debiased 30.54 | bias 2025-07:+0.0153 2025-08:+0.0347 | val MAE 39.84 | cuda:0 0.6 min, 67 epochs, ens 7
+[2026-10-04 17:03:06] run tp_level_F3_s2 on gpu (n_models 64, d_block 384, batch 512, amp bfloat16, ns bfloat16)
+[tp_level_F3_s2] test MAE clean 39.68 all 95.69 MAPE 1.71% debiased 31.85 | bias 2025-09:-0.0105 2025-10:-0.0136 | val MAE 28.00 | cuda:0 0.95 min, 71 epochs, ens 20
+[2026-10-04 17:04:10] run tp_standalone_F1_s1 on gpu (n_models 64, d_block 384, batch 512, amp bfloat16, ns bfloat16)
+[tp_standalone_F1_s1] test MAE clean 42.57 all 96.34 MAPE 1.73% debiased 38.37 | bias 2025-05:-0.0039 2025-06:-0.0168 | val MAE 27.30 | cuda:0 0.92 min, 149 epochs, ens 10
+[2026-10-04 17:05:12] run tp_standalone_F2_s1 on gpu (n_models 64, d_block 384, batch 512, amp bfloat16, ns bfloat16)
+[tp_standalone_F2_s1] test MAE clean 67.41 all 119.04 MAPE 3.31% debiased 67.66 | bias 2025-07:-0.0110 2025-08:-0.0180 | val MAE 19.76 | cuda:0 1.33 min, 142 epochs, ens 13
+[2026-10-04 17:06:38] run tp_standalone_F3_s1 on gpu (n_models 64, d_block 384, batch 512, amp bfloat16, ns bfloat16)
+[tp_standalone_F3_s1] test MAE clean 56.59 all 112.44 MAPE 2.37% debiased 28.92 | bias 2025-09:-0.0143 2025-10:-0.0275 | val MAE 30.43 | cuda:0 0.82 min, 54 epochs, ens 5
+[2026-10-04 17:07:34] run tp_standalone_F1_s2 on gpu (n_models 64, d_block 384, batch 512, amp bfloat16, ns bfloat16)
+[tp_standalone_F1_s2] test MAE clean 37.36 all 91.20 MAPE 1.57% debiased 34.96 | bias 2025-05:-0.0027 2025-06:-0.0137 | val MAE 27.17 | cuda:0 0.83 min, 135 epochs, ens 11
+[2026-10-04 17:08:31] run tp_standalone_F2_s2 on gpu (n_models 64, d_block 384, batch 512, amp bfloat16, ns bfloat16)
+[tp_standalone_F2_s2] test MAE clean 66.10 all 117.72 MAPE 3.16% debiased 67.12 | bias 2025-07:-0.0076 2025-08:-0.0142 | val MAE 20.52 | cuda:0 1.25 min, 145 epochs, ens 9
+[2026-10-04 17:09:53] run tp_standalone_F3_s2 on gpu (n_models 64, d_block 384, batch 512, amp bfloat16, ns bfloat16)
+[tp_standalone_F3_s2] test MAE clean 60.59 all 116.39 MAPE 2.47% debiased 29.17 | bias 2025-09:-0.0148 2025-10:-0.0302 | val MAE 32.14 | cuda:0 1.01 min, 71 epochs, ens 13
+[2026-10-04 17:11:00] run tp_level_lanetopk_F1_s1 on gpu (n_models 64, d_block 384, batch 512, amp bfloat16, ns bfloat16)
+[tp_level_lanetopk_F1_s1] test MAE clean 45.04 all 98.77 MAPE 1.82% debiased 34.29 | bias 2025-05:-0.0075 2025-06:-0.0192 | val MAE 32.95 | cuda:0 0.49 min, 71 epochs, ens 13
+[2026-10-04 17:11:36] run tp_level_lanetopk_F2_s1 on gpu (n_models 64, d_block 384, batch 512, amp bfloat16, ns bfloat16)
+[tp_level_lanetopk_F2_s1] test MAE clean 71.32 all 123.00 MAPE 3.05% debiased 31.36 | bias 2025-07:+0.0189 2025-08:+0.0378 | val MAE 38.38 | cuda:0 0.69 min, 65 epochs, ens 4
+[2026-10-04 17:12:23] run tp_level_lanetopk_F3_s1 on gpu (n_models 64, d_block 384, batch 512, amp bfloat16, ns bfloat16)
+[tp_level_lanetopk_F3_s1] test MAE clean 40.24 all 96.25 MAPE 1.72% debiased 31.82 | bias 2025-09:-0.0108 2025-10:-0.0137 | val MAE 28.16 | cuda:0 1.12 min, 75 epochs, ens 21
+[2026-10-04 17:13:37] run tp_level_lanetopk_F1_s2 on gpu (n_models 64, d_block 384, batch 512, amp bfloat16, ns bfloat16)
+[tp_level_lanetopk_F1_s2] test MAE clean 45.12 all 98.85 MAPE 1.82% debiased 34.12 | bias 2025-05:-0.0073 2025-06:-0.0193 | val MAE 33.05 | cuda:0 0.5 min, 83 epochs, ens 24
+[2026-10-04 17:14:13] run tp_level_lanetopk_F2_s2 on gpu (n_models 64, d_block 384, batch 512, amp bfloat16, ns bfloat16)
+[tp_level_lanetopk_F2_s2] test MAE clean 65.40 all 117.14 MAPE 2.79% debiased 30.35 | bias 2025-07:+0.0160 2025-08:+0.0349 | val MAE 39.38 | cuda:0 0.64 min, 69 epochs, ens 9
+[2026-10-04 17:14:58] run tp_level_lanetopk_F3_s2 on gpu (n_models 64, d_block 384, batch 512, amp bfloat16, ns bfloat16)
+[tp_level_lanetopk_F3_s2] test MAE clean 40.14 all 96.14 MAPE 1.71% debiased 31.88 | bias 2025-09:-0.0107 2025-10:-0.0134 | val MAE 28.09 | cuda:0 1.09 min, 75 epochs, ens 17
+[2026-10-04 17:16:11] run tp_level_lanefull_F1_s1 on gpu (n_models 64, d_block 384, batch 512, amp bfloat16, ns bfloat16)
+[tp_level_lanefull_F1_s1] test MAE clean 45.41 all 99.15 MAPE 1.81% debiased 33.94 | bias 2025-05:-0.0073 2025-06:-0.0193 | val MAE 32.83 | cuda:0 0.98 min, 80 epochs, ens 14
+[2026-10-04 17:17:16] run tp_level_lanefull_F2_s1 on gpu (n_models 64, d_block 384, batch 512, amp bfloat16, ns bfloat16)
+[tp_level_lanefull_F2_s1] test MAE clean 68.79 all 120.47 MAPE 2.97% debiased 31.41 | bias 2025-07:+0.0179 2025-08:+0.0369 | val MAE 38.49 | cuda:0 1.23 min, 64 epochs, ens 5
+[2026-10-04 17:18:37] run tp_level_lanefull_F3_s1 on gpu (n_models 64, d_block 384, batch 512, amp bfloat16, ns bfloat16)
+[tp_level_lanefull_F3_s1] test MAE clean 40.27 all 96.27 MAPE 1.71% debiased 31.65 | bias 2025-09:-0.0108 2025-10:-0.0138 | val MAE 27.97 | cuda:0 2.11 min, 98 epochs, ens 21
+[2026-10-04 17:20:50] run tp_level_lanefull_F1_s2 on gpu (n_models 64, d_block 384, batch 512, amp bfloat16, ns bfloat16)
+[tp_level_lanefull_F1_s2] test MAE clean 45.46 all 99.20 MAPE 1.81% debiased 34.20 | bias 2025-05:-0.0072 2025-06:-0.0190 | val MAE 32.73 | cuda:0 0.93 min, 77 epochs, ens 13
+[2026-10-04 17:21:52] run tp_level_lanefull_F2_s2 on gpu (n_models 64, d_block 384, batch 512, amp bfloat16, ns bfloat16)
+[tp_level_lanefull_F2_s2] test MAE clean 66.64 all 118.34 MAPE 2.84% debiased 30.53 | bias 2025-07:+0.0165 2025-08:+0.0356 | val MAE 39.14 | cuda:0 1.2 min, 61 epochs, ens 4
+[2026-10-04 17:23:11] run tp_level_lanefull_F3_s2 on gpu (n_models 64, d_block 384, batch 512, amp bfloat16, ns bfloat16)
+[tp_level_lanefull_F3_s2] test MAE clean 39.91 all 95.91 MAPE 1.71% debiased 31.63 | bias 2025-09:-0.0110 2025-10:-0.0136 | val MAE 27.97 | cuda:0 1.62 min, 76 epochs, ens 24
+| experiment | fold | n | MAE clean | MAE all | MAPE | debiased | bias m1 / m2 |
+|---|---|---|---|---|---|---|---|
+| cb_time | F1 | 3 | 83.09 ± 2.81 | 136.28 | 3.75% | 78.56 | -0.46% / -7.23% |
+| cb_time | F2 | 3 | 67.15 ± 3.01 | 118.78 | 3.21% | 70.01 | -0.34% / -1.04% |
+| cb_time | F1+F2 | – | 75.12 | 127.53 | 3.48% | 74.29 | – |
+| cb_time | F3 | 3 | 57.49 ± 1.89 | 113.29 | 2.35% | 31.80 | -1.50% / -2.70% |
+| cb_level_noqs | F1 | 3 | 50.75 ± 0.23 | 104.42 | 1.99% | 34.43 | -1.07% / -2.14% |
+| cb_level_noqs | F2 | 3 | 50.52 ± 0.37 | 102.48 | 2.14% | 31.39 | +0.52% / +2.55% |
+| cb_level_noqs | F1+F2 | – | 50.63 | 103.45 | 2.06% | 32.91 | – |
+| cb_level_noqs | F3 | 3 | 37.45 ± 0.10 | 93.50 | 1.61% | 32.56 | -0.68% / -1.12% |
+| tp_standalone | F1 | 3 | 39.65 ± 2.66 | 93.46 | 1.63% | 36.56 | -0.28% / -1.49% |
+| tp_standalone | F2 | 3 | 66.74 ± 0.66 | 118.37 | 3.26% | 67.33 | -1.08% / -1.68% |
+| tp_standalone | F1+F2 | – | 53.20 | 105.92 | 2.44% | 51.94 | – |
+| tp_standalone | F3 | 3 | 60.36 ± 3.66 | 116.16 | 2.48% | 29.23 | -1.49% / -2.98% |
+| tp_level | F1 | 3 | 45.73 ± 0.45 | 99.45 | 1.83% | 34.17 | -0.76% / -1.96% |
+| tp_level | F2 | 3 | 67.42 ± 2.17 | 119.14 | 2.87% | 30.69 | +1.67% / +3.60% |
+| tp_level | F1+F2 | – | 56.57 | 109.29 | 2.35% | 32.43 | – |
+| tp_level | F3 | 3 | 39.89 ± 0.21 | 95.90 | 1.71% | 31.86 | -1.07% / -1.35% |
+| tp_level_lanetopk | F1 | 3 | 45.29 ± 0.36 | 99.02 | 1.82% | 34.25 | -0.73% / -1.93% |
+| tp_level_lanetopk | F2 | 3 | 67.38 ± 3.42 | 119.09 | 2.89% | 30.79 | +1.70% / +3.61% |
+| tp_level_lanetopk | F1+F2 | – | 56.33 | 109.06 | 2.35% | 32.52 | – |
+| tp_level_lanetopk | F3 | 3 | 40.22 ± 0.07 | 96.22 | 1.72% | 31.87 | -1.09% / -1.35% |
+| tp_level_lanefull | F1 | 3 | 45.56 ± 0.20 | 99.30 | 1.81% | 34.09 | -0.73% / -1.93% |
+| tp_level_lanefull | F2 | 3 | 66.57 ± 2.26 | 118.28 | 2.87% | 30.68 | +1.67% / +3.58% |
+| tp_level_lanefull | F1+F2 | – | 56.06 | 108.79 | 2.34% | 32.38 | – |
+| tp_level_lanefull | F3 | 3 | 40.13 ± 0.20 | 96.13 | 1.71% | 31.69 | -1.10% / -1.35% |
+
+       experiment fold  seed device  wall_min  epochs_run  s_per_epoch  n_models_finished  best_epoch_median  ensemble_size  ensemble_n_unique  val_mae_clean
+    tp_standalone   F1     0 cuda:0      0.77       113.0         0.38               61.0               31.0            8.0                4.0      26.369946
+    tp_standalone   F1     1 cuda:0      0.92       149.0         0.35               63.0               41.0           10.0                5.0      27.303960
+    tp_standalone   F1     2 cuda:0      0.83       135.0         0.35               64.0               31.0           11.0                6.0      27.174634
+    tp_standalone   F2     0 cuda:0      0.80        79.0         0.56               63.0               10.0            7.0                4.0      21.051950
+    tp_standalone   F2     1 cuda:0      1.33       142.0         0.54               62.0               19.5           13.0                6.0      19.759879
+    tp_standalone   F2     2 cuda:0      1.25       145.0         0.49               64.0               12.0            9.0                5.0      20.516154
+    tp_standalone   F3     0 cuda:0      1.08        80.0         0.76               63.0               10.0           16.0                9.0      31.186135
+    tp_standalone   F3     1 cuda:0      0.82        54.0         0.85               61.0               10.0            5.0                3.0      30.433638
+    tp_standalone   F3     2 cuda:0      1.01        71.0         0.80               63.0                9.0           13.0                8.0      32.136470
+         tp_level   F1     0 cuda:0      0.55        89.0         0.34               64.0               20.0           11.0               10.0      32.721211
+         tp_level   F1     1 cuda:0      0.61        98.0         0.34               63.0               19.0           21.0               16.0      32.967469
+         tp_level   F1     2 cuda:0      0.58        99.0         0.32               63.0               17.0           18.0               12.0      32.877661
+         tp_level   F2     0 cuda:0      0.60        57.0         0.57               60.0               12.0            6.0                5.0      39.549223
+         tp_level   F2     1 cuda:0      0.70        64.0         0.60               63.0               15.0            5.0                4.0      38.522919
+         tp_level   F2     2 cuda:0      0.60        67.0         0.49               62.0               11.0            7.0                5.0      39.844548
+         tp_level   F3     0 cuda:0      0.83        60.0         0.78               64.0               10.0           18.0               13.0      27.961971
+         tp_level   F3     1 cuda:0      0.99        72.0         0.78               64.0               15.0           26.0               14.0      28.004849
+         tp_level   F3     2 cuda:0      0.95        71.0         0.76               64.0                9.5           20.0               12.0      27.999534
+tp_level_lanetopk   F1     0 cuda:0      0.55        87.0         0.34               62.0               16.0           12.0                8.0      32.981491
+tp_level_lanetopk   F1     1 cuda:0      0.49        71.0         0.37               62.0               18.5           13.0               12.0      32.953424
+tp_level_lanetopk   F1     2 cuda:0      0.50        83.0         0.32               62.0               16.0           24.0               21.0      33.047786
+tp_level_lanetopk   F2     0 cuda:0      0.66        66.0         0.55               62.0               13.0            8.0                4.0      39.756200
+tp_level_lanetopk   F2     1 cuda:0      0.69        65.0         0.58               64.0               16.5            4.0                3.0      38.384476
+tp_level_lanetopk   F2     2 cuda:0      0.64        69.0         0.51               64.0               13.0            9.0                5.0      39.376648
+tp_level_lanetopk   F3     0 cuda:0      0.87        65.0         0.75               64.0               10.0           21.0               16.0      28.078722
+tp_level_lanetopk   F3     1 cuda:0      1.12        75.0         0.85               62.0               15.0           21.0               11.0      28.157077
+tp_level_lanetopk   F3     2 cuda:0      1.09        75.0         0.83               64.0               10.5           17.0               13.0      28.087307
+tp_level_lanefull   F1     0 cuda:0      0.79        54.0         0.81               50.0               12.5            8.0                7.0      32.801443
+tp_level_lanefull   F1     1 cuda:0      0.98        80.0         0.68               58.0               20.5           14.0               12.0      32.827945
+tp_level_lanefull   F1     2 cuda:0      0.93        77.0         0.67               61.0               17.0           13.0               11.0      32.733901
+tp_level_lanefull   F2     0 cuda:0      1.40        82.0         0.96               64.0               13.5            7.0                6.0      40.016993
+tp_level_lanefull   F2     1 cuda:0      1.23        64.0         1.08               63.0               14.0            5.0                3.0      38.494035
+tp_level_lanefull   F2     2 cuda:0      1.20        61.0         1.10               64.0               12.0            4.0                1.0      39.142045
+tp_level_lanefull   F3     0 cuda:0      1.69        82.0         1.17               63.0                8.0           24.0               14.0      27.943164
+tp_level_lanefull   F3     1 cuda:0      2.11        98.0         1.24               63.0               12.0           21.0               17.0      27.968614
+tp_level_lanefull   F3     2 cuda:0      1.62        76.0         1.21               64.0                8.0           24.0               14.0      27.971033
+F1+F2 grid (cb+tp_level): w, mean clean MAE, mean debiased MAE
+  w=0.0  clean 56.43  debiased 32.12
+  w=0.1  clean 55.54  debiased 32.00
+  w=0.2  clean 54.72  debiased 31.92
+  w=0.3  clean 53.96  debiased 31.88
+  w=0.4  clean 53.25  debiased 31.88
+  w=0.5  clean 52.61  debiased 31.92
+  w=0.6  clean 52.04  debiased 32.00
+  w=0.7  clean 51.54  debiased 32.11
+  w=0.8  clean 51.11  debiased 32.25
+  w=0.9  clean 50.75  debiased 32.43
+  w=1.0  clean 50.46  debiased 32.64
+chosen w = 1.0 (debiased would pick 0.4); F1+F2 CatBoost 50.46 -> blend 50.46 (gain +0.00); gate (> $0.5) fails
+bootstrap F1+F2 MAE(blend)-MAE(CB): {'delta': 0.0, 'ci95_low': 0.0, 'ci95_high': 0.0, 'p_delta_ge_0': 1.0}
+seed pairs gain: {'mean': 0.0, 'sd': 0.0, 'min': 0.0, 'max': 0.0}
+F3: CatBoost 37.30 | TabPack 39.80 | blend w=1.0 37.30 | 50/50 38.09 | bootstrap {'delta': 0.0, 'ci95_low': 0.0, 'ci95_high': 0.0, 'p_delta_ge_0': 1.0}
+[2026-10-04 17:25:05] run tp_level_FINAL_s0 on gpu (n_models 64, d_block 384, batch 512, amp bfloat16, ns bfloat16)
+[tp_level_FINAL_s0] wrote 12031 predictions; cuda:0 1.15 min
+[2026-10-04 17:26:19] run tp_level_FINAL_s1 on gpu (n_models 64, d_block 384, batch 512, amp bfloat16, ns bfloat16)
+[tp_level_FINAL_s1] wrote 12031 predictions; cuda:0 1.02 min
+[2026-10-04 17:27:25] run tp_level_FINAL_s2 on gpu (n_models 64, d_block 384, batch 512, amp bfloat16, ns bfloat16)
+[tp_level_FINAL_s2] wrote 12031 predictions; cuda:0 1.23 min
+chosen w = 1.0; gate passes = False (gain +0.00)
+Traceback (most recent call last):
+  File "/root/spotter_assessment/scripts/tabpack/blend.py", line 412, in <module>
+    final() if a.final else backtest()
+    ^^^^^^^
+  File "/root/spotter_assessment/scripts/tabpack/blend.py", line 346, in final
+    model = fin.load_final()
+            ^^^^^^^^^^^^^^^^
+  File "/root/spotter_assessment/src/freight/final.py", line 284, in load_final
+    cb.model_.load_model(str(_model_path(seed)))
+  File "/root/spotter_assessment/.venv/lib/python3.12/site-packages/catboost/core.py", line 3758, in load_model
+    self._load_model(fname, format)
+  File "/root/spotter_assessment/.venv/lib/python3.12/site-packages/catboost/core.py", line 1946, in _load_model
+    self._object._load_model(model_file, format)
+  File "_catboost.pyx", line 5796, in _catboost._CatBoost._load_model
+  File "_catboost.pyx", line 5799, in _catboost._CatBoost._load_model
+_catboost.CatBoostError: catboost/libs/model/model_import_interface.h:19: Model file doesn't exist: /root/spotter_assessment/artifacts/models/catboost_seed0.cbm
